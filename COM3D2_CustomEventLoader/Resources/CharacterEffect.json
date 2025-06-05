@@ -1,7 +1,7 @@
 {
   "Breath": {
     "Prefab": "Particle/pToiki",
-    "Name": "WildParty_Mod_Breath",
+    "Name": "CustomEvent_Mod_Breath",
     "TargetBone": "Bip01 Head",
     "Offset": {
       "PosString": "0.04, 0.08, 0",
@@ -11,7 +11,7 @@
 
   "SexualFluid1": {
     "Prefab": "Particle/pPistonEasy_cm3D2",
-    "Name": "WildParty_Mod_SexualFluid1",
+    "Name": "CustomEvent_Mod_SexualFluid1",
     "TargetBone": "_IK_vagina",
     "Offset": {
       "PosString": "0, 0, 0.01",
@@ -21,7 +21,7 @@
 
   "SexualFluid2": {
     "Prefab": "Particle/pPistonNormal_cm3D2",
-    "Name": "WildParty_Mod_SexualFluid2",
+    "Name": "CustomEvent_Mod_SexualFluid2",
     "TargetBone": "_IK_vagina",
     "Offset": {
       "PosString": "0, 0, 0.01",
@@ -31,7 +31,7 @@
 
   "SexualFluid3": {
     "Prefab": "Particle/pPistonHard_cm3D2",
-    "Name": "WildParty_Mod_SexualFluid3",
+    "Name": "CustomEvent_Mod_SexualFluid3",
     "TargetBone": "_IK_vagina",
     "Offset": {
       "PosString": "0, 0, 0.01",
