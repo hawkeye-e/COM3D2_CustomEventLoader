@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36121.58 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "COM3D2_CustomEventLoader", "COM3D2_CustomEventLoader\COM3D2_CustomEventLoader.csproj", "{B0E96915-4DED-44A0-9031-F0A1BF72E4C8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Release|Any CPU = Release|Any CPU
+		V2 Debug|Any CPU = V2 Debug|Any CPU
+		V2.5 Debug|Any CPU = V2.5 Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B0E96915-4DED-44A0-9031-F0A1BF72E4C8}.Release|Any CPU.ActiveCfg = COM3D25-Release|Any CPU
+		{B0E96915-4DED-44A0-9031-F0A1BF72E4C8}.Release|Any CPU.Build.0 = COM3D25-Release|Any CPU
+		{B0E96915-4DED-44A0-9031-F0A1BF72E4C8}.V2 Debug|Any CPU.ActiveCfg = COM3D2_2-DEBUG|Any CPU
+		{B0E96915-4DED-44A0-9031-F0A1BF72E4C8}.V2 Debug|Any CPU.Build.0 = COM3D2_2-DEBUG|Any CPU
+		{B0E96915-4DED-44A0-9031-F0A1BF72E4C8}.V2.5 Debug|Any CPU.ActiveCfg = COM3D25-Debug|Any CPU
+		{B0E96915-4DED-44A0-9031-F0A1BF72E4C8}.V2.5 Debug|Any CPU.Build.0 = COM3D25-Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {07B2CAE2-36C9-47A5-AE09-C33F579E012F}
+	EndGlobalSection
+EndGlobal

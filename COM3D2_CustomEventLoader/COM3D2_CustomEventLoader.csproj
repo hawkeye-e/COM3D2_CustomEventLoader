@@ -1,0 +1,221 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<LangVersion>latest</LangVersion>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<RestoreAdditionalProjectSources>
+			https://api.nuget.org/v3/index.json;
+			https://nuget.bepinex.dev/v3/index.json;
+			https://nuget.samboy.dev/v3/index.json
+		</RestoreAdditionalProjectSources>
+		<Configurations>COM3D2_2-DEBUG;COM3D2_2-Release;COM3D25-Debug;COM3D25-Release</Configurations>
+		<Platforms>AnyCPU</Platforms>
+		<TargetFramework>net472</TargetFramework>
+		<AssemblyName>COM3D2.CustomEventLoader</AssemblyName>
+		<RootNamespace>COM3D2.CustomEventLoader.Plugin</RootNamespace>
+	</PropertyGroup>
+	<ItemGroup>
+	  <Folder Include="HooksAndPatches\ADVScreen\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Update="Resx\DisplayTextResource.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>DisplayTextResource.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Resx\TextResource.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>TextResource.resx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+	<ItemGroup>
+	  <EmbeddedResource Update="Resx\DisplayTextResource.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>DisplayTextResource.Designer.cs</LastGenOutput>
+	    <CustomToolNamespace>ModResources</CustomToolNamespace>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Resx\TextResource.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>TextResource.Designer.cs</LastGenOutput>
+	    <CustomToolNamespace>ModResources</CustomToolNamespace>
+	  </EmbeddedResource>
+	</ItemGroup>
+
+  	<Choose>
+		<!-- Configure COM3D2 related dependencies -->
+		<When Condition="$(Configuration.Contains('COM3D2_2'))">
+			<ItemGroup>
+				<Reference Include="0Harmony">
+				  <HintPath>..\ref_2\0Harmony.dll</HintPath>
+				  <Private>False</Private>
+				</Reference>
+				<Reference Include="UnityEngine">
+				  <HintPath>..\ref_2\UnityEngine.dll</HintPath>
+				  <Private>False</Private>
+				</Reference>
+				<Reference Include="BepInEx">
+				  <HintPath>..\ref_2\BepInEx.dll</HintPath>
+				  <Private>False</Private>
+				</Reference>
+				<Reference Include="UnityEngine.UI">
+				  <HintPath>..\ref_2\UnityEngine.UI.dll</HintPath>
+				  <Private>False</Private>
+				</Reference>
+				<Reference Include="Assembly-CSharp">
+				  <HintPath>..\ref_2\Assembly-CSharp.dll</HintPath>
+				  <Private>False</Private>
+				</Reference>
+				<Reference Include="Assembly-CSharp-firstpass">
+				  <HintPath>..\ref_2\Assembly-CSharp-firstpass.dll</HintPath>
+				  <Private>False</Private>
+				</Reference>
+				<Reference Include="Newtonsoft.Json, Version=13.0.1.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+				  <SpecificVersion>False</SpecificVersion>
+				  <HintPath>..\ref_2\Newtonsoft.Json.dll</HintPath>
+				  <Private>False</Private>
+				</Reference>
+				<Reference Include="ICSharpCode.SharpZipLib">
+				  <HintPath>..\ref_2\ICSharpCode.SharpZipLib.dll</HintPath>
+				  <Private>False</Private>
+				</Reference>
+				
+				<Reference Include="System" />
+				<Reference Include="System.Core" />
+				<Reference Include="System.Windows.Forms" />
+				<Reference Include="System.Xml.Linq" />
+				<Reference Include="System.Data.DataSetExtensions" />
+				<Reference Include="System.Data" />
+				<Reference Include="System.Xml" />
+			</ItemGroup>
+		</When>
+
+		<!-- Configure COM3D2.5 related dependencies -->
+		<When Condition="$(Configuration.Contains('COM3D25'))">
+			<ItemGroup>
+			    <Reference Include="BepInEx">
+				  <HintPath>..\ref_2_5\BepInEx.dll</HintPath>
+				  <Private>False</Private>
+				</Reference>
+				<Reference Include="0Harmony">
+				  <HintPath>..\ref_2_5\0Harmony.dll</HintPath>
+				  <Private>False</Private>
+				</Reference>
+				<Reference Include="Newtonsoft.Json, Version=13.0.1.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+				  <SpecificVersion>False</SpecificVersion>
+				  <HintPath>..\ref_2_5\Newtonsoft.Json.dll</HintPath>
+				  <Private>False</Private>
+				</Reference>
+				<Reference Include="UnityEngine">
+					<HintPath>..\ref_2_5\UnityEngine.dll</HintPath>
+					<Private>False</Private>
+				</Reference>
+				<Reference Include="UnityEngine.AnimationModule">
+				  <HintPath>..\ref_2_5\UnityEngine.AnimationModule.dll</HintPath>
+				  <Private>False</Private>
+				</Reference>
+				<Reference Include="UnityEngine.AssetBundleModule">
+				  <HintPath>..\ref_2_5\UnityEngine.AssetBundleModule.dll</HintPath>
+				  <Private>False</Private>
+				</Reference>
+				<Reference Include="UnityEngine.AudioModule">
+				  <HintPath>..\ref_2_5\UnityEngine.AudioModule.dll</HintPath>
+				  <Private>False</Private>
+				</Reference>
+				<Reference Include="UnityEngine.CoreModule">
+				  <HintPath>..\ref_2_5\UnityEngine.CoreModule.dll</HintPath>
+				  <Private>False</Private>
+				</Reference>
+				<Reference Include="UnityEngine.ImageConversionModule">
+				  <HintPath>..\ref_2_5\UnityEngine.ImageConversionModule.dll</HintPath>
+				  <Private>False</Private>
+				</Reference>
+				<Reference Include="UnityEngine.InputLegacyModule">
+				  <HintPath>..\ref_2_5\UnityEngine.InputLegacyModule.dll</HintPath>
+				  <Private>False</Private>
+				</Reference>
+				<Reference Include="UnityEngine.UI">
+				  <HintPath>..\ref_2_5\UnityEngine.UI.dll</HintPath>
+				  <Private>False</Private>
+				</Reference>
+				<Reference Include="Assembly-CSharp">
+				  <HintPath>..\ref_2_5\Assembly-CSharp.dll</HintPath>
+				  <Private>False</Private>
+				</Reference>
+				<Reference Include="Assembly-CSharp-firstpass">
+				  <HintPath>..\ref_2_5\Assembly-CSharp-firstpass.dll</HintPath>
+				  <Private>False</Private>
+				</Reference>
+				<Reference Include="ICSharpCode.SharpZipLib">
+				  <HintPath>..\ref_2_5\ICSharpCode.SharpZipLib.dll</HintPath>
+				  <Private>False</Private>
+				</Reference>
+
+				
+				<Reference Include="System" />
+				<Reference Include="System.Core" />
+				<Reference Include="System.Windows.Forms" />
+				<Reference Include="System.Xml.Linq" />
+				<Reference Include="System.Data.DataSetExtensions" />
+				<Reference Include="System.Data" />
+				<Reference Include="System.Xml" />
+			</ItemGroup>
+		</When>
+	</Choose>
+
+	<Choose>
+		<!-- COM3D2 related configuration -->
+		<When Condition="'$(Configuration)|$(Platform)' == 'COM3D2_2-DEBUG|AnyCPU'">
+			<PropertyGroup>
+				<TargetFramework>net35</TargetFramework>
+				<Deterministic>true</Deterministic>
+				<OutputPath>bin\Debug\COM3D2\</OutputPath>
+				<Optimize>false</Optimize>
+				<DefineConstants>COM3D2;DEBUG;TRACE</DefineConstants>
+				<AssemblyTitle>CustomEvent COM3D2</AssemblyTitle>
+				<ErrorReport>prompt</ErrorReport>
+				<WarningLevel>4</WarningLevel>
+			</PropertyGroup>
+		</When>
+		<When Condition="'$(Configuration)|$(Platform)' == 'COM3D2_2-Release|AnyCPU'">
+			<PropertyGroup>
+				<TargetFramework>net35</TargetFramework>
+				<Deterministic>true</Deterministic>
+				<OutputPath>bin\Release\COM3D2\</OutputPath>
+				<Optimize>true</Optimize>
+				<DefineConstants>COM3D2</DefineConstants>
+				<AssemblyTitle>CustomEvent COM3D2</AssemblyTitle>
+				<ErrorReport>prompt</ErrorReport>
+				<WarningLevel>4</WarningLevel>
+			</PropertyGroup>
+		</When>
+
+		<!-- COM3D2.5 related configuration -->
+		<When Condition="'$(Configuration)|$(Platform)' == 'COM3D25-Debug|AnyCPU'">
+			<PropertyGroup>
+				<TargetFramework>net48</TargetFramework>
+				<Deterministic>true</Deterministic>
+				<OutputPath>bin\Debug\COM3D25\</OutputPath>
+				<Optimize>false</Optimize>
+				<DefineConstants>COM3D2_5;UNITY_2022_3;DEBUG;TRACE</DefineConstants>
+				<AssemblyTitle>CustomEvent COM3D2.5 Unity2022.3</AssemblyTitle>
+				<ErrorReport>prompt</ErrorReport>
+				<WarningLevel>4</WarningLevel>
+			</PropertyGroup>
+		</When>
+		<When Condition="'$(Configuration)|$(Platform)' == 'COM3D25-Release|AnyCPU'">
+			<PropertyGroup>
+				<TargetFramework>net48</TargetFramework>
+				<Deterministic>true</Deterministic>
+				<OutputPath>bin\Release\COM3D25\</OutputPath>
+				<Optimize>true</Optimize>
+				<DefineConstants>COM3D2_5;UNITY_2022_3</DefineConstants>
+				<AssemblyTitle>CustomEvent COM3D2.5 Unity2022.3</AssemblyTitle>
+				<ErrorReport>prompt</ErrorReport>
+				<WarningLevel>4</WarningLevel>
+			</PropertyGroup>
+		</When>
+	</Choose>
+  
+  
+
+</Project>
