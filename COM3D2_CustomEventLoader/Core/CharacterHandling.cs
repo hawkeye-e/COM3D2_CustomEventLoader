@@ -64,13 +64,13 @@ namespace COM3D2.CustomEventLoader.Plugin.Core
             return man;
         }
 
-        internal static Maid InitNPCMaid(string presetName, bool isEmptyLastName)
+        internal static Maid InitNPCMaid(string key)
         {
             Maid maid = GameMain.Instance.CharacterMgr.AddStockMaid();
 
             foreach (var kvp in CharacterMgr.npcDatas)
             {
-                if (kvp.Value.presetFileName == presetName && isEmptyLastName == string.IsNullOrEmpty(kvp.Value.lastName))
+                if (kvp.Key == key)
                 {
                     kvp.Value.Apply(maid);
                     break;
@@ -81,6 +81,99 @@ namespace COM3D2.CustomEventLoader.Plugin.Core
             StateManager.Instance.WaitForFullLoadList.Add(maid);
 
             return maid;
+        }
+
+        internal static Maid InitModNPCFemale(ModNPCFemale npcData)
+        {
+            Maid maid = GameMain.Instance.CharacterMgr.AddStockMaid();
+#if COM3D2_5
+#if UNITY_2022_3
+            CharacterMgr.Preset preset = LoadPreset(npcData.PresetFile.V2_5);
+#endif
+#endif
+
+#if COM3D2
+            CharacterMgr.Preset preset = LoadPreset(npcData.PresetFile.V2);
+#endif
+
+            GameMain.Instance.CharacterMgr.PresetSet(maid, preset);
+
+            if (maid != null)
+            {
+                //Doesnt matter for personality as there is no yotogi scene?
+                maid.status.SetPersonal(npcData.Personality);
+                maid.VoicePitch = npcData.VoicePitch;
+
+                Traverse.Create(maid.status).Field(Constant.DefinedClassFieldNames.MaidStatusFirstName).SetValue(npcData.FirstName);
+                Traverse.Create(maid.status).Field(Constant.DefinedClassFieldNames.MaidStatusLastName).SetValue(npcData.LastName);
+                Traverse.Create(maid.status).Field(Constant.DefinedClassFieldNames.MaidStatusNickName).SetValue(npcData.NickName);
+
+                maid.status.isNickNameCall = false;
+                maid.status.isFirstNameCall = false;
+                if (npcData.WayToCall == ModNPC.CallType.NickName)
+                    maid.status.isNickNameCall = true;
+                else if (npcData.WayToCall == ModNPC.CallType.FirstName)
+                    maid.status.isFirstNameCall = true;
+
+                RenderMaidAfterInit(maid);
+
+                StateManager.Instance.WaitForFullLoadList.Add(maid);
+            }
+
+            return maid;
+        }
+
+
+
+        internal static CharacterMgr.Preset LoadPreset(string presetFileName)
+        {
+            var scnDef = Util.GetCurrentScenarioDefinition();
+            byte[] presetData = ScenarioFileHandling.GetCustomEventFileContentInByteArray(scnDef.FilePath, presetFileName);
+
+            BinaryReader binaryReader = new BinaryReader(new MemoryStream(presetData));
+#if COM3D2_5
+#if UNITY_2022_3
+            CharacterMgr.Preset result = CharacterMgr.PresetLoad(binaryReader, Path.GetFileName(presetFileName));
+#endif
+#endif
+
+#if COM3D2
+            CharacterMgr.Preset result = GameMain.Instance.CharacterMgr.PresetLoad(binaryReader, Path.GetFileName(presetFileName));
+#endif
+            binaryReader.Close();
+
+            return result;
+        }
+
+        internal static Maid InitModNPCMale(ModNPCMale npcData)
+        {
+            Maid man = GameMain.Instance.CharacterMgr.AddStockMan();
+
+            SetManBody(man, npcData.Color, npcData.BodySize, npcData.Head, npcData.Clothed);
+
+            Traverse.Create(man.status).Field(Constant.DefinedClassFieldNames.MaidStatusFirstName).SetValue(npcData.FirstName);
+            Traverse.Create(man.status).Field(Constant.DefinedClassFieldNames.MaidStatusLastName).SetValue(npcData.LastName);
+            Traverse.Create(man.status).Field(Constant.DefinedClassFieldNames.MaidStatusNickName).SetValue(npcData.NickName);
+
+            man.status.isNickNameCall = false;
+            man.status.isFirstNameCall = false;
+            if (npcData.WayToCall == ModNPC.CallType.NickName)
+                man.status.isNickNameCall = true;
+            else if (npcData.WayToCall == ModNPC.CallType.FirstName)
+                man.status.isFirstNameCall = true;
+
+            RenderMaidAfterInit(man);
+
+            StateManager.Instance.WaitForFullLoadList.Add(man);
+
+            ManClothingInfo manClothingInfo = new ManClothingInfo();
+            manClothingInfo.IsNude = false;
+            manClothingInfo.Clothed = npcData.Clothed.Trim();
+            manClothingInfo.Nude = npcData.Nude.Trim();
+            StateManager.Instance.ManClothingList.Add(man.status.guid, manClothingInfo);
+
+
+            return man;
         }
 
         internal static void RenderMaidAfterInit(Maid maid)

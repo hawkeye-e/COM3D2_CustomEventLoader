@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace COM3D2.CustomEventLoader.Plugin
 {
     internal class Constant
     {
+        public const string LipSyncPattern = "AAAVAAAmAAArAAArAAAoAAAmAAAtAAA3AABVAABWAABcAABZAABRAAAlABMTADkIAFMCADwAADwAADwAABAAAAQAIwIGMQADNwABPAAAOwAANQAANwAANAAANAAANgAAMgAAMQAALgAALAAAKgAAJwAAJQAAJAAAIwAAIQAAMgAAMQAALQAAMAAALgAALQAALgAALAAALQAALQAAKQAAJwAAJQAAIwAAIQAAHwAAHwAAHQAAHAAAGwAAGQAAFwAAFgAAFgAACgAAAgAAAQEjAAA9AABCAABCAAA7AAAUAAALAAsLACgFADADADcAADQAAC8AAC8AAC8AFQsLJgAFJwAAMgAASAAATgAAPQAANQAAMgAAMAAALQAAMwAALQAAFQQEBQMXAgIkAAAxAAAxAAAzAAAyAAAyAAAxAAAxAAAuAAAxAAAuAAAtAAAsAAAsAAAkAAAdAAAVAAAmAAArAAArAAAoAAAmAAAtAAA3AABVAABWAABcAABZAABRAAAlABMTADkIAFMCADwAADwAADwAABAAAAQAIwIGMQADNwABPAAAOwAANQAANwAANAAANAAANgAAMgAAMQAALgAALAAAKgAAJwAAJQAAJAAAIwAAIQAAMgAAMQAALQAAMAAALgAALQAALgAALAAALQAALQAAKQAAJwAAJQAAIwAAIQAAHwAAHwAAHQAAHAAAGwAAGQAAFwAAFgAAFgAACgAAAgAAAQEjAAA9AABCAABCAAA7AAAUAAALAAsLACgFADADADcAADQAAC8AAC8AAC8AFQsLJgAFJwAAMgAASAAATgAAPQAANQAAMgAAMAAALQAAMwAALQAAFQQEBQMXAgIkAAAxAAAxAAAzAAAyAAAyAAAxAAAxAAAuAAAxAAAuAAAtAAAsAAAsAAAkAAAdAAAVAAAmAAArAAArAAAoAAAmAAAtAAA3AABVAABWAABcAABZAABRAAAlABMTADkIAFMCADwAADwAADwAABAAAAQAIwIGMQADNwABPAAAOwAANQAANwAANAAANAAANgAAMgAAMQAALgAALAAAKgAAJwAAJQAAJAAAIwAAIQAAMgAAMQAALQAAMAAALgAALQAALgAALAAALQAALQAAKQAAJwAAJQAAIwAAIQAAHwAAHwAAHQAAHAAAGwAAGQAAFwAAFgAAFgAACgAAAgAAAQEjAAA9AABCAABCAAA7AAAUAAALAAsLACgFADADADcAADQAAC8AAC8AAC8AFQsLJgAFJwAAMgAASAAATgAAPQAANQAAMgAAMAAALQAAMwAALQAAFQQEBQMXAgIkAAAxAAAxAAAzAAAyAAAyAAAxAAAxAAAuAAAxAAAuAAAtAAAsAAAsAAAkAAAdAAAVAAAmAAArAAArAAAoAAAmAAAtAAA3AABVAABWAABcAABZAABRAAAlABMTADkIAFMCADwAADwAADwAABAAAAQAIwIGMQADNwABPAAAOwAANQAANwAANAAANAAANgAAMgAAMQAALgAALAAAKgAAJwAAJQAAJAAAIwAAIQAAMgAAMQAALQAAMAAALgAALQAALgAALAAALQAALQAAKQAAJwAAJQAAIwAAIQAAHwAAHwAAHQAAHAAAGwAAGQAAFwAAFgAAFgAACgAAAgAAAQEjAAA9AABCAABCAAA7AAAUAAALAAsLACgFADADADcAADQAAC8AAC8AAC8AFQsLJgAFJwAAMgAASAAATgAAPQAANQAAMgAAMAAALQAAMwAALQAAFQQEBQMXAgIkAAAxAAAxAAAzAAAyAAAyAAAxAAAxAAAuAAAxAAAuAAAtAAAsAAAsAAAkAAAdAAAVAAAmAAArAAArAAAoAAAmAAAtAAA3AABVAABWAABcAABZAABRAAAlABMTADkIAFMCADwAADwAADwAABAAAAQAIwIGMQADNwABPAAAOwAANQAANwAANAAANAAANgAAMgAAMQAALgAALAAAKgAAJwAAJQAAJAAAIwAAIQAAMgAAMQAALQAAMAAALgAALQAALgAALAAALQAALQAAKQAAJwAAJQAAIwAAIQAAHwAAHwAAHQAAHAAAGwAAGQAAFwAAFgAAFgAACgAAAgAAAQEjAAA9AABCAABCAAA7AAAUAAALAAsLACgFADADADcAADQAAC8AAC8AAC8AFQsLJgAFJwAAMgAASAAATgAAPQAANQAAMgAAMAAALQAAMwAALQAAFQQEBQMXAgIkAAAxAAAxAAAzAAAyAAAyAAAxAAAxAAAuAAAxAAAuAAAtAAAsAAAsAAAkAAAdAAAVAAAmAAArAAArAAAoAAAmAAAtAAA3AABVAABWAABcAABZAABRAAAlABMTADkIAFMCADwAADwAADwAABAAAAQAIwIGMQADNwABPAAAOwAANQAANwAANAAANAAANgAAMgAAMQAALgAALAAAKgAAJwAAJQAAJAAAIwAAIQAAMgAAMQAALQAAMAAALgAALQAALgAALAAALQAALQAAKQAAJwAAJQAAIwAAIQAAHwAAHwAAHQAAHAAAGwAAGQAAFwAAFgAAFgAACgAAAgAAAQEjAAA9AABCAABCAAA7AAAUAAALAAsLACgFADADADcAADQAAC8AAC8AAC8AFQsLJgAFJwAAMgAASAAATgAAPQAANQAAMgAAMAAALQAAMwAALQAAFQQEBQMXAgIkAAAxAAAxAAAzAAAyAAAyAAAxAAAxAAAuAAAxAAAuAAAtAAAsAAAsAAAkAAAdAAAVAAAmAAArAAArAAAoAAAmAAAtAAA3AABVAABWAABcAABZAABRAAAlABMTADkIAFMCADwAADwAADwAABAAAAQAIwIGMQADNwABPAAAOwAANQAANwAANAAANAAANgAAMgAAMQAALgAALAAAKgAAJwAAJQAAJAAAIwAAIQAAMgAAMQAALQAAMAAALgAALQAALgAALAAALQAALQAAKQAAJwAAJQAAIwAAIQAAHwAAHwAAHQAAHAAAGwAAGQAAFwAAFgAAFgAACgAAAgAAAQEjAAA9AABCAABCAAA7AAAUAAALAAsLACgFADADADcAADQAAC8AAC8AAC8AFQsLJgAFJwAAMgAASAAATgAAPQAANQAAMgAAMAAALQAAMwAALQAAFQQEBQMXAgIkAAAxAAAxAAAzAAAyAAAyAAAxAAAxAAAuAAAxAAAuAAAtAAAsAAAsAAAkAAAdAAAVAAAmAAArAAArAAAoAAAmAAAtAAA3AABVAABWAABcAABZAABRAAAlABMTADkIAFMCADwAADwAADwAABAAAAQAIwIGMQADNwABPAAAOwAANQAANwAANAAANAAANgAAMgAAMQAALgAALAAAKgAAJwAAJQAAJAAAIwAAIQAAMgAAMQAALQAAMAAALgAALQAALgAALAAALQAALQAAKQAAJwAAJQAAIwAAIQAAHwAAHwAAHQAAHAAAGwAAGQAAFwAAFgAAFgAACgAAAgAAAQEjAAA9AABCAABCAAA7AAAUAAALAAsLACgFADADADcAADQAAC8AAC8AAC8AFQsLJgAFJwAAMgAASAAATgAAPQAANQAAMgAAMAAALQAAMwAALQAAFQQEBQMXAgIkAAAxAAAxAAAzAAAyAAAyAAAxAAAxAAAuAAAxAAAuAAAtAAAsAAAsAAAkAAAd";
+
         public const string DefinitionFileName = "def.json";
         public const string StepsFileName = "steps.json";
         public const int AnyPersonality = 0;
@@ -82,16 +83,11 @@ namespace COM3D2.CustomEventLoader.Plugin
             internal const string ChangeCamera = "Camera";
             internal const string ShowChoiceList = "List";
 
-            internal const string CloseMsgPanel = "CloseMsgPanel";
+            internal const string FadeOut = "FadeOut";          //
+            internal const string FadeIn = "FadeIn";                        //Add this type to separate fade in/out from each steps
             internal const string LoadScene = "LoadScene";
 
             internal const string CharaInit = "CharaInit";
-            internal const string BranchByPersonality = "BranchByPersonality";
-            internal const string BranchByMap = "BranchByMap";
-
-            internal const string BranchByPlace = "BranchByPlace";
-            internal const string Special = "Special";  //Indicate the step require some special handling and need extra coding
-            internal const string LoadYotogi = "LoadYotogi";  //Separated from Special. 
 
             internal const string Pick = "Pick";
             internal const string MakeGroup = "MakeGroup";  //Assign characters into a group in order to set group motion etc
@@ -101,13 +97,13 @@ namespace COM3D2.CustomEventLoader.Plugin
             internal const string RemoveTexture = "RemoveTexture";
 
             internal const string Shuffle = "Shuffle";
-            internal const string ListUpdate = "ListUpdate";
             internal const string TimeWait = "TimeWait";
 
             internal const string AddObject = "AddObject";
             internal const string RemoveObject = "RemoveObject";
 
-            internal const string ConvertSex = "ConvertSex";
+            internal const string Evaluate = "Evaluate";
+            internal const string Branch = "Branch";
 
             internal const string ADVEnd = "ADVEnd";    //End the scenario and return to normal flow
         }
@@ -136,8 +132,6 @@ namespace COM3D2.CustomEventLoader.Plugin
             internal const string AllNPCFemale = "NPC_F_ALL";
             internal const string AllNPCMale = "NPC_M_ALL";
 
-            internal const string PairedMan = "PairedMan";
-            internal const string ConvertedMaid = "ConvertedMaid";
         }
 
         internal static class WaitingType
@@ -192,11 +186,6 @@ namespace COM3D2.CustomEventLoader.Plugin
             internal const string ClubName = "[=ClubName]";
             internal const string ClubOwnerName = "[=ClubOwnerName]";
 
-            //TODO: will these be used in this mod??
-            internal const string PersonalityType = "[=PType]";
-            internal const string MapType = "[=MType]";
-
-
 
             /*Format: [=Name,{Source},{Index},{CallMethod}]
              * {Source} :   "Maid" : From SelectedMaidsList; "NPC_F" : From NPCList;  "NPC_M" : From NPCManList
@@ -204,6 +193,11 @@ namespace COM3D2.CustomEventLoader.Plugin
              * {CallMethod} :   Options: "CallName", "FullName", "LastName", "FirstName"
              */
             internal const string CharacterNameRegex = @"\[\=Name,(Maid|NPC_F|NPC_M),(\d{1,2}),(CallName|FullName|LastName|FirstName|NickName)\]";
+
+            /*Format: [=Var,{VariableName}]
+             * {VariableName} :   The Key in the CustomVariable dictionary
+             */
+            internal const string VariableRegex = @"\[\=Var,([a-zA-Z0-9_]+)\]";
 
             ////Format: [=RandomGroup,{GroupIndex},Maid{MaidIndex}Name]
             //internal const string RandomGroupRegex = @"\[\=RandomGroup,(\d{1,2}),([a-zA-Z0-9]+)\]";
@@ -264,6 +258,76 @@ namespace COM3D2.CustomEventLoader.Plugin
             internal const string accheso = "accheso";          //へそ
             internal const string accnip = "accnip";            //乳首
             internal const string accxxx = "accxxx";            //前穴
+        }
+
+        internal static class DefinedClassFieldNames
+        {
+            internal const string MaidStatusFirstName = "firstName_";
+            internal const string MaidStatusLastName = "lastName_";
+            internal const string MaidStatusNickName = "nickName_";
+
+        }
+
+        internal static class OperatorType
+        {
+            internal const string Assignment = "=";
+            internal const string Addition = "+";
+            internal const string Subtraction = "-";
+            internal const string Multiplication = "*";
+            internal const string Division = "/";
+
+            internal const string Equal = "==";
+            internal const string GreaterThan = ">";
+            internal const string GreaterThanEqualTo = ">=";
+            internal const string LessThan = "<";
+            internal const string LessThanEqualTo = "<=";
+
+            internal const string NotEqual = "!=";
+            internal const string LogicalAnd = "&&";
+            internal const string LogicalOr = "||";
+            internal const string Negation = "!";
+
+            internal const string Concatenation = "&";
+        }
+
+        public enum VariableType
+        {
+            Integer,
+            FloatingPoint,
+            String,
+            Boolean,
+        }
+
+        internal static class CharacterStatusField
+        {
+            internal const string Likability = "likability";
+            internal const string Lovely = "lovely";
+            internal const string Elegance = "elegance";
+            internal const string Charm = "charm";
+            internal const string Care = "care";
+            internal const string Reception = "reception";
+            internal const string Cooking = "cooking";
+            internal const string Dance = "dance";
+            internal const string Vocal = "vocal";
+            internal const string NightWorkCount = "playCountNightWork";
+
+            internal const string Inyoku = "inyoku";
+            internal const string MValue = "mvalue";
+            internal const string Hentai = "hentai";
+            internal const string Houshi = "housi";
+            internal const string YotogiCount = "playCountYotogi";
+
+            internal const string HeroineType = "personal.id";
+            internal const string SexExperienceVaginal = "seikeiken.vaginal";
+            internal const string SexExperienceAnal = "seikeiken.anal";
+            internal const string Height = "body.height";
+            internal const string Weight = "body.weight";
+            internal const string Bust = "body.bust";
+            internal const string Waist = "body.waist";
+            internal const string Hip = "body.hip";
+            internal const string Cup = "body.cup";
+
+            internal const string SexNumOfPeople = "sexPlayNumberOfPeople";
         }
     }
 }

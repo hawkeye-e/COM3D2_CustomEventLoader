@@ -132,4 +132,7 @@
   <data name="DisplayLanguageFormat" xml:space="preserve">
     <value>Language: {0}</value>
   </data>
+  <data name="DisplayNumberOfMaidsFormat" xml:space="preserve">
+    <value>Number of maids: {0}</value>
+  </data>
 </root>

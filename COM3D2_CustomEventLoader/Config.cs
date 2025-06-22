@@ -2,9 +2,9 @@
 using BepInEx.Configuration;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace COM3D2.CustomEventLoader.Plugin
 {
@@ -13,19 +13,54 @@ namespace COM3D2.CustomEventLoader.Plugin
         private const string GENERAL = "1. General";
         private const string DEVELOPER = "2. Developer Used";
 
-        private static readonly string DEFAULT_CUSTOM_SCENARIO_PATH = "CustomScenario";
+        private static readonly string DEFAULT_CUSTOM_EVENT_PATH = "CustomEvent";
 
         internal static bool Enabled { get { return _enabled.Value; } }
         private static ConfigEntry<bool> _enabled;
 
-        internal static string CustomScenarioPath { get { return _customScenarioPath.Value; } }
-        private static ConfigEntry<string> _customScenarioPath;
+        internal static string CustomEventPath { get { return _customEventPath.Value; } }
+        private static ConfigEntry<string> _customEventPath;
 
         internal static bool DeveloperMode { get { return _developerMode.Value; } }
         private static ConfigEntry<bool> _developerMode;
 
         internal static bool DebugIgnoreADVForceTimeWait { get { return _debugIgnoreADVForceTimeWait.Value; } }
         private static ConfigEntry<bool> _debugIgnoreADVForceTimeWait;
+
+        internal static KeyboardShortcut DeveloperModeCameraKey { get { return _developerModeCameraKey.Value; } }
+        private static ConfigEntry<KeyboardShortcut> _developerModeCameraKey;
+
+        internal static KeyboardShortcut DeveloperModeWorldObjectDataKey { get { return _developerModeWorldObjectDataKey.Value; } }
+        private static ConfigEntry<KeyboardShortcut> _developerModeWorldObjectDataKey;
+
+        internal static KeyboardShortcut DeveloperModeCharaPlacementDataKey { get { return _developerModeCharaPlacementDataKey.Value; } }
+        private static ConfigEntry<KeyboardShortcut> _developerModeCharaPlacementDataKey;
+
+        internal static bool DebugAlwaysReloadEventList { get { return _debugAlwaysReloadEventList.Value; } }
+        private static ConfigEntry<bool> _debugAlwaysReloadEventList;
+
+        internal static bool DebugLogAudioInfo { get { return _debugLogAudioInfo.Value; } }
+        private static ConfigEntry<bool> _debugLogAudioInfo;
+
+        internal static bool DebugLogScriptInfo { get { return _debugLogScriptInfo.Value; } }
+        private static ConfigEntry<bool> _debugLogScriptInfo;
+
+        internal static bool DebugLogAnimationInfo { get { return _debugLogAnimationInfo.Value; } }
+        private static ConfigEntry<bool> _debugLogAnimationInfo;
+
+        internal static bool DebugLogFaceAnimeInfo { get { return _debugLogFaceAnimeInfo.Value; } }
+        private static ConfigEntry<bool> _debugLogFaceAnimeInfo;
+
+        internal static bool DebugLogBackgroundInfo { get { return _debugLogBackgroundInfo.Value; } }
+        private static ConfigEntry<bool> _debugLogBackgroundInfo;
+
+        internal static bool DebugLogBGMInfo { get { return _debugLogBGMInfo.Value; } }
+        private static ConfigEntry<bool> _debugLogBGMInfo;
+
+        internal static bool DebugLogSEInfo { get { return _debugLogSEInfo.Value; } }
+        private static ConfigEntry<bool> _debugLogSEInfo;
+
+
 
 
         internal static void Init(BaseUnityPlugin plugin)
@@ -38,9 +73,9 @@ namespace COM3D2.CustomEventLoader.Plugin
         {
             _enabled = plugin.Config.Bind(GENERAL, "1. Enable this plugin", true, "If false, this plugin will do nothing (requires game restart)");
 
-            _customScenarioPath = plugin.Config.Bind(GENERAL, "2. Custom Scenario Folder Relative Path", DEFAULT_CUSTOM_SCENARIO_PATH,
-                "The folder path that contains all the custom scenarios in zip file format. \n\n" + 
-                "For example if the value here is 'MyPath', the mod will try to locate the zip files in the path '" + AppDomain.CurrentDomain.BaseDirectory + "\\MyPath'. \n\n" +
+            _customEventPath = plugin.Config.Bind(GENERAL, "2. Custom Event Folder Relative Path", DEFAULT_CUSTOM_EVENT_PATH,
+                "The folder path that contains all the custom events in zip file format. \n\n" + 
+                "For example if the value here is 'MyPath', the mod will try to locate the zip files in the path '" + Directory.GetCurrentDirectory() + "\\MyPath'. \n\n" +
                 "You need to create this path yourself if this is the first time you run this mod."
                 );
         }
@@ -49,27 +84,31 @@ namespace COM3D2.CustomEventLoader.Plugin
 
         private static void AddDeveloperRelatedConfigs(BaseUnityPlugin plugin)
         {
-            _developerMode = plugin.Config.Bind(DEVELOPER, "Developer Mode", false, "Leave this unchecked if you have no idea what it is (requires game restart)");
+            _developerMode = plugin.Config.Bind(DEVELOPER, "_Developer Mode", true, "Turn this on if you want the information for the editor (requires game restart)");
 
-            //_debugLogMotionData = plugin.Config.Bind(DEVELOPER, "Log Motion Data", false, "Leave this unchecked if you have no idea what it is");
+            _debugAlwaysReloadEventList = plugin.Config.Bind(DEVELOPER, "Always Reload Event List", false, "The system will cache the event list so that it does not scan the custom event folder every time when the custom event screen is shown. Turn this on if you do not want to restart the game when you are creating and testing your events.");
 
-            //_debugCaptureDialogues = plugin.Config.Bind(DEVELOPER, "Log All Dialogues", false, "Leave this unchecked if you have no idea what it is");
+            _developerModeCameraKey = plugin.Config.Bind(DEVELOPER, "Print Camera Info Key", new KeyboardShortcut(UnityEngine.KeyCode.C), "The key to display camera information required for the camera step.");
 
-            _debugIgnoreADVForceTimeWait = plugin.Config.Bind(DEVELOPER, "Ignore ADV Time Wait Setting", false, "Skip all those time wait setting in ADV to speed up the debug process. Leave this unchecked if you have no idea what it is");
+            _developerModeWorldObjectDataKey = plugin.Config.Bind(DEVELOPER, "Print Object Info List Key", new KeyboardShortcut(UnityEngine.KeyCode.O), "The key to display object list information required for the World Object step. Works in studio mode only.");
 
-            //_debugLogScriptInfo = plugin.Config.Bind(DEVELOPER, "Log Load Script Info", false, "Log the script info whenever it is loaded in the game. Leave this unchecked if you have no idea what it is");
+            _developerModeCharaPlacementDataKey = plugin.Config.Bind(DEVELOPER, "Print Character Placement Key", new KeyboardShortcut(UnityEngine.KeyCode.X), "The key to display character placement information required for the Chara step. Works in studio mode only.");
 
-            //_debugLogAnimationInfo = plugin.Config.Bind(DEVELOPER, "Log Load Animation Info", false, "Log the animation info whenever an animation file is loaded for a object in the game. Leave this unchecked if you have no idea what it is");
+            _debugIgnoreADVForceTimeWait = plugin.Config.Bind(DEVELOPER, "Ignore ADV Time Wait Setting", false, "Skip all those time wait setting in ADV to speed up the debug process.");
 
-            //_debugLogAudioInfo = plugin.Config.Bind(DEVELOPER, "Log Load Audio Info", false, "Log the audio info whenever an audio file is loaded for a maid in the game. Leave this unchecked if you have no idea what it is");
+            _debugLogScriptInfo = plugin.Config.Bind(DEVELOPER, "Log Load Script Info", false, "Log the script info whenever it is loaded in the game.");
 
-            //_debugLogFaceAnimeInfo = plugin.Config.Bind(DEVELOPER, "Log Load Face Anime Info", false, "Log the face anime info whenever the facial expression changed for a maid in the game. Leave this unchecked if you have no idea what it is");
+            _debugLogAnimationInfo = plugin.Config.Bind(DEVELOPER, "Log Load Animation Info", false, "Log the animation info whenever an animation file is loaded for a object in the game.");
 
-            //_debugLogBackgroundInfo = plugin.Config.Bind(DEVELOPER, "Log Load Background Info", false, "Log the background info whenever it is changed in the game. Leave this unchecked if you have no idea what it is");
+            _debugLogAudioInfo = plugin.Config.Bind(DEVELOPER, "Log Load Audio Info", false, "Log the audio info whenever an audio file is loaded for a maid in the game.");
 
-            //_debugLogBGMInfo = plugin.Config.Bind(DEVELOPER, "Log Load BGM Info", false, "Log the BGM info whenever it is changed in the game. Leave this unchecked if you have no idea what it is");
+            _debugLogFaceAnimeInfo = plugin.Config.Bind(DEVELOPER, "Log Load Face Anime Info", false, "Log the face anime info whenever the facial expression changed for a maid in the game.");
 
-            //_debugLogSEInfo = plugin.Config.Bind(DEVELOPER, "Log Load SE Info", false, "Log the sound effect info whenever it is changed in the game. Leave this unchecked if you have no idea what it is");
+            _debugLogBackgroundInfo = plugin.Config.Bind(DEVELOPER, "Log Load Background Info", false, "Log the background info whenever it is changed in the game.");
+
+            _debugLogBGMInfo = plugin.Config.Bind(DEVELOPER, "Log Load BGM Info", false, "Log the BGM info whenever it is changed in the game.");
+
+            _debugLogSEInfo = plugin.Config.Bind(DEVELOPER, "Log Load SE Info", false, "Log the sound effect info whenever it is changed in the game.");
         }
 
 

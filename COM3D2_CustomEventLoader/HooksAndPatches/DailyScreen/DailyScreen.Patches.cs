@@ -92,6 +92,9 @@ namespace COM3D2.CustomEventLoader.Plugin.HooksAndPatches.DailyScreen
                     List<string> conditionText = new List<string>();
                     conditionText.Add(string.Format(ModResources.DisplayTextResource.DisplayAuthorFormat, kvp.Value.Author));
                     conditionText.Add(string.Format(ModResources.DisplayTextResource.DisplayLanguageFormat, kvp.Value.Language));
+                    if (kvp.Value.MaidRequirement != null)
+                        conditionText.Add(string.Format(ModResources.DisplayTextResource.DisplayNumberOfMaidsFormat, kvp.Value.MaidRequirement.Count));
+                    
                     Traverse.Create(sData).Field("ConditionText").SetValue(conditionText.ToArray());
 
                     Traverse.Create(sData).Field("EventMaidNum").SetValue(0);
@@ -112,12 +115,12 @@ namespace COM3D2.CustomEventLoader.Plugin.HooksAndPatches.DailyScreen
 
         internal static void CreateCustomScenarioList()
         {
-            if (StateManager.Instance.IsScenarioListCreated)
+            if (StateManager.Instance.IsScenarioListCreated && !Config.DebugAlwaysReloadEventList)
                 return;
 
             Dictionary<int, ScenarioDefinition> result = new Dictionary<int, ScenarioDefinition>();
-
-            string scenarioFolderPath = AppDomain.CurrentDomain.BaseDirectory + "\\" + Plugin.Config.CustomScenarioPath;
+            
+            string scenarioFolderPath = Directory.GetCurrentDirectory() + "\\" + Plugin.Config.CustomEventPath;
 
             string[] allFiles = Directory.GetFiles(scenarioFolderPath, "*.*", SearchOption.AllDirectories);
 

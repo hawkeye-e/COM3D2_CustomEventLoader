@@ -125,6 +125,9 @@ namespace COM3D2.CustomEventLoader.Plugin.Core
             Util.ClearGenericCollection(StateManager.Instance.ScenarioSteps);
             Util.ClearGenericCollection(StateManager.Instance.WaitForFullLoadList);
 
+            Util.ClearGenericCollection(StateManager.Instance.CustomVariable);
+            Util.ClearGenericCollection(StateManager.Instance.ForceLipSyncingList);
+
 
             StateManager.Instance.WaitForUserClick = false;
             StateManager.Instance.WaitForUserInput = false;

@@ -104,5 +104,14 @@ namespace ModResources {
                 return ResourceManager.GetString("DisplayLanguageFormat", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of maids: {0}.
+        /// </summary>
+        internal static string DisplayNumberOfMaidsFormat {
+            get {
+                return ResourceManager.GetString("DisplayNumberOfMaidsFormat", resourceCulture);
+            }
+        }
     }
 }

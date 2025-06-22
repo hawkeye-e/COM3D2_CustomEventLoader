@@ -54,5 +54,45 @@ namespace COM3D2.CustomEventLoader.Plugin.HooksAndPatches.ADVScreen
             }
         }
 
+        internal static void StartSpoofingLoadMotionScript(string label_name, string maid_guid, string man_guid)
+        {
+            if (StateManager.Instance.UndergoingModEventID > 0)
+            {
+
+                StateManager.Instance.processingMaidGUID = maid_guid;
+                StateManager.Instance.processingManGUID = man_guid;
+
+                if (maid_guid == "" && man_guid == "")
+                    StateManager.Instance.IsMainGroupMotionScriptFlag = true;
+
+            }
+        }
+
+        internal static void EndSpoofingLoadMotionScript()
+        {
+            if (StateManager.Instance.UndergoingModEventID > 0)
+            {
+                StateManager.Instance.processingMaidGUID = "";
+                StateManager.Instance.processingManGUID = "";
+
+                StateManager.Instance.IsMainGroupMotionScriptFlag = false;
+            }
+        }
+
+        internal static void ForceMaidLipSync(Maid maid)
+        {
+            if (StateManager.Instance.ForceLipSyncingList.Contains(maid))
+            {
+                if (DateTime.Now < StateManager.Instance.LipSyncEndTime)
+                {
+                    double t = DateTime.Now.Subtract(StateManager.Instance.LipSyncStartTime).TotalMilliseconds / 1000;
+                    maid.FoceKuchipakuUpdate((float)t);
+                }
+                else
+                {
+                    maid.StopKuchipakuPattern();
+                }
+            }
+        }
     }
 }

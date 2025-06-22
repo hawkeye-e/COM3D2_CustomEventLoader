@@ -12,7 +12,6 @@ namespace COM3D2.CustomEventLoader.Plugin
         public EyeToCameraSettingDetail EyeToCameraSetting;
         public EyeToCharaSettingDetail EyeToCharaSetting;
         public EyeToObjectSettingDetail EyeToObjectSetting;
-        public GroupMemberType SourceGroupMember;       //Used in Group only (Coordinate json)
 
         public class EyeToCameraSettingDetail
         {

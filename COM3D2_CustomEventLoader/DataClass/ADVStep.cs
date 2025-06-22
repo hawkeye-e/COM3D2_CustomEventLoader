@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
-using Newtonsoft.Json;
 
 namespace COM3D2.CustomEventLoader.Plugin
 {
@@ -11,6 +12,7 @@ namespace COM3D2.CustomEventLoader.Plugin
     {
 #pragma warning disable 0649
         public string ID;
+        public string Name;
         public string Type;
         public string NextStepID;
         public string WaitingType;
@@ -24,7 +26,7 @@ namespace COM3D2.CustomEventLoader.Plugin
         public Fade FadeData;
         public Talk TalkData;
         public Camera CameraData;
-        public Choice[] ChoiceData;
+        public Choice ChoiceData;
         public CharaInit CharaInitData;
         public ShowChara[] CharaData;
         public ShowGroupMotion[] GroupData;       //Separate from ShowChara to not making things over complicated
@@ -37,7 +39,9 @@ namespace COM3D2.CustomEventLoader.Plugin
 
         public RandomPick PickData;             //This is for ordering to randomly pick some characters for later adv processing
         public List<MakeGroupFormat> GroupFormat;     //Assign group to perform group motion in ADV scene etc
-        public ConvertSex ConvertSexData;
+
+        public Evaluate EvalData;
+        public Branch BranchData;
 
         internal class Fade
         {
@@ -50,10 +54,18 @@ namespace COM3D2.CustomEventLoader.Plugin
             {
                 get 
                 {
-                    if (ColorString.ToLower() == Constant.DefinedColorString.White.ToLower())
-                        return Color.white;
-                    else
+                    try
+                    {
+                        int a = int.Parse(ColorString.Substring(0, 2), System.Globalization.NumberStyles.HexNumber);
+                        int r = int.Parse(ColorString.Substring(2, 2), System.Globalization.NumberStyles.HexNumber);
+                        int g = int.Parse(ColorString.Substring(4, 2), System.Globalization.NumberStyles.HexNumber);
+                        int b = int.Parse(ColorString.Substring(6, 2), System.Globalization.NumberStyles.HexNumber);
+                        return new Color(r, g, b, a);
+                    }
+                    catch
+                    {
                         return Color.black;
+                    }
                 }
             }
         }
@@ -133,33 +145,43 @@ namespace COM3D2.CustomEventLoader.Plugin
 
         internal class Choice
         {
-            public string Key;
-            public string Value;
+            public string Variable;
+            public List<ChoiceOption> Options;
+
+            public class ChoiceOption
+            {
+                public string Key;
+                public string Value;
+            }
         }
 
         internal class CharaInit
         {
             public int ManRequired = -1;        //Indicate how many man character needed to be initialized. Negative to skip (eg. it is decided from user input)
             public List<string> ValidManType;   //Referencing RandomizeManSetting. Required if ManRequired is non negative.
-            public string ValidManConfigKey = "";         //The config key to determine what types of man are loaded.
-            public List<NPCData> NPC;
-            public List<ModNPCData> ModNPC;
-            public bool IsClubOwnerADVMainCharacter = true;    //True: Man[0] will be the owner; False: Man[0] will be replaced with other man character and owner is accessible from StateManager.Instance.ClubOwner
-            public bool RequiresMaidPairMan = false;            //For the use of converting maid to man
+            public List<NPCFemaleData> NPCFemale;           //Female only
+            public List<NPCMaleData> NPCMale;
 
-            internal class NPCData
+            internal class NPCFemaleData
             {
-                public int Index;               //Share the same array with ModNPC
-                public string Preset;           //The name could be in English or Japanese so this should be a better id?
-                public bool EmptyLastName = false;      //Since the preset could be duplicates in npcdatas, use this as indicate we want to load the preset with a last name or not in order to locate the correct preset we want
-                public string Name;             //For making it more readable in json only. The name dispalyed in the game should still use CallName
+                public int Index;               
+                public NPCType Type;
+                public string Key;              //Key of the official NPC
+                public ModNPCFemale CustomData; //Data for custom NPC
+
+
+                public enum NPCType
+                {
+                    Official,
+                    Custom,
+                }
             }
 
-            internal class ModNPCData
+            internal class NPCMaleData
             {
-                public int Index;               //Share the same array with NPC
-                public string NPCID;
-                public bool IsFemale = true;
+                public int Index;               
+                public ModNPCMale MaleData;
+                
             }
         }
 
@@ -169,14 +191,10 @@ namespace COM3D2.CustomEventLoader.Plugin
             public int ArrayPosition;
             public bool UseBranchIndex = false;
 
-            //In some scenario the master may be removed from the array, use this flag if want to do any setup with it in the adv. 
-            //If this is set to true, the ArrayPosition has to be set to zero
-            public bool IsMaster = false;       
+            public bool IsMaster = false;                               //Use this flag for club owner
             public bool Visible;
-            public bool WaitLoad = false;
             public bool IsManNude = false;
             public bool OpenMouth = false;                              //True: open mouth for fella motion etc; False: default
-            public bool ResetIK = false;
             public SmoothMovementSetup SmoothMovement = null;
 
             public MotionInfo MotionInfo;
@@ -188,7 +206,6 @@ namespace COM3D2.CustomEventLoader.Plugin
             public ExtraObjectsSetting ExtraObjectsInfo;
             public string ClothesSetID;                                 //Special ID: "RESET", reset all applied ClothesSetID. Otherwise follows ClothesSet.json
             public EffectDetail Effect;
-            //public List<IKAttachInfo> IKAttach;
 
             public class SmoothMovementSetup
             {
@@ -206,7 +223,6 @@ namespace COM3D2.CustomEventLoader.Plugin
             public int SexPosID = -1;           //in case we are trying to apply yotogi motion to the group
 
             public PosRot PosRot;
-            public bool WaitLoad = false;
             public bool BlockInputUntilMotionChange = false;      
 
             public DetailSetup Maid1;
@@ -339,17 +355,62 @@ namespace COM3D2.CustomEventLoader.Plugin
             public List<string> Remove;
         }
 
-        internal class ConvertSex
+        internal class Evaluate
         {
-            public List<ConvertSexDetail> ToMale;           //Convert a maid to male structure 
-            public List<ConvertSexDetail> ToFemale;         //Convert a man to female structure
-            public List<ConvertSexDetail> BackToMale;       //Revert a converted structure character back to male
-            public List<ConvertSexDetail> BackToFemale;     //Revert a converted structure character back to female
+            public string Operator;         //Constant.OperatorType
+            public InputDetail Input1;
+            public InputDetail Input2;
+            public string ResultVariableName;
 
-            public class ConvertSexDetail
+            public class InputDetail
             {
-                public string Type;                         //Use Constant.TargetType
-                public int ArrayPosition;
+                [JsonConverter(typeof(StringEnumConverter))]
+                public SourceType SourceType;
+                public VariableInfo Variable;
+                public CharaStatusInfo CharaStatus;
+                public FixedValueInfo FixedValue;
+            }
+
+            public class VariableInfo
+            {
+                public string VariableName;
+            }
+
+            public class CharaStatusInfo
+            {
+                public string ListType;             //Only Maid or NPC(Female) available
+                public int ArrayPosition;           
+
+                public string FieldName;         //status field name
+            }
+
+            public class FixedValueInfo
+            {
+                [JsonConverter(typeof(StringEnumConverter))]
+                public Constant.VariableType FixedValueType;
+                public string FixedValue;
+            }
+
+            public enum SourceType
+            {
+                Variable,
+                CharcterStatus,
+                FixedValue
+            }
+        }
+
+        internal class Branch
+        {
+            public string VariableName;     //The variable that used to compared
+            public string CompareMethod;    //Valid operator list: [==, >, >=, <, <=]
+            [JsonConverter(typeof(StringEnumConverter))]
+            public Constant.VariableType VariableType;
+            public List<BranchItem> BranchList;
+
+            public class BranchItem
+            {
+                public string Value;        //stored as string in json, convert it to appropiate type in loader
+                public string NextStepID;
             }
         }
 

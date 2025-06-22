@@ -34,10 +34,12 @@ namespace COM3D2.CustomEventLoader.Plugin.Core
                 //We dont want to process this over and over again if we are waiting for user input
                 if (StateManager.Instance.ProcessedADVStepID != StateManager.Instance.CurrentADVStepID)
                 {
-                    Log.LogInfo("Current Step: " + StateManager.Instance.CurrentADVStepID);
 
-                    //ADVStep thisStep = StateManager.Instance.dicADVSceneSteps[StateManager.Instance.CurrentADVStepID];
                     ADVStep thisStep = StateManager.Instance.ScenarioSteps[StateManager.Instance.CurrentADVStepID];
+
+                    if (Config.DeveloperMode)
+                        Log.LogInfo("Current Step ID: " + thisStep.ID + ", Step Name: " + thisStep.Name );
+
                     switch (thisStep.Type)
                     {
                         case Constant.ADVType.ChangeBGM:
@@ -52,8 +54,8 @@ namespace COM3D2.CustomEventLoader.Plugin.Core
                         case Constant.ADVType.ChangeCamera:
                             ProcessADVChangeCamera(instance, thisStep);
                             break;
-                        case Constant.ADVType.CloseMsgPanel:
-                            ProcessADVCloseMessagePanel(instance, thisStep);
+                        case Constant.ADVType.FadeOut:
+                            ProcessADVFadeOut(instance, thisStep);
                             break;
                         case Constant.ADVType.Talk:
                             ProcessADVTalk(instance, thisStep);
@@ -67,15 +69,10 @@ namespace COM3D2.CustomEventLoader.Plugin.Core
                         case Constant.ADVType.CharaInit:
                             ProcessADVCharaInit(instance, thisStep);
                             break;
-                        case Constant.ADVType.BranchByPersonality:
-                            ProcessADVBranchByPersonality(instance, thisStep);
+                        case Constant.ADVType.Branch:
+                            ProcessADVBranch(instance, thisStep);
                             break;
-                        case Constant.ADVType.BranchByMap:
-                            ProcessADVBranchByMap(instance, thisStep);
-                            break;
-                        //case Constant.ADVType.Pick:
-                        //    ProcessADVRandomPick(instance, thisStep);
-                        //    break;
+
                         case Constant.ADVType.MakeGroup:
                             ProcessADVMakeGroup(instance, thisStep);
                             break;
@@ -94,14 +91,14 @@ namespace COM3D2.CustomEventLoader.Plugin.Core
                         case Constant.ADVType.RemoveObject:
                             ProcessADVRemoveObject(instance, thisStep);
                             break;
-                        //case Constant.ADVType.Shuffle:
-                        //    ProcessADVShuffle(instance, thisStep);
-                        //    break;
-                        case Constant.ADVType.ListUpdate:
-                            ProcessADVListUpdate(instance, thisStep);
+                        case Constant.ADVType.ShowChoiceList:
+                            ProcessADVShowChoiceList(instance, thisStep);
                             break;
                         case Constant.ADVType.TimeWait:
                             ProcessADVTimeWait(instance, thisStep);
+                            break;
+                        case Constant.ADVType.Evaluate:
+                            ProcessADVEvaluate(instance, thisStep);
                             break;
                         case Constant.ADVType.ADVEnd:
                             ProcessADVEnd(instance);
@@ -176,50 +173,39 @@ namespace COM3D2.CustomEventLoader.Plugin.Core
             StateManager.Instance.ClubOwner.AllProcPropSeqStart();
             StateManager.Instance.ClubOwner.transform.localPosition = new Vector3(-999f, -999f, -999f);
             
-            StateManager.Instance.SpoofActivateMaidObjectFlag = true;
-            if (!step.CharaInitData.IsClubOwnerADVMainCharacter)
-            {
-                //the Man[0] is replaced by a customer and will use his view to proceed the yotogi scene
-                GameMain.Instance.CharacterMgr.SetActiveMan(StateManager.Instance.MenList[0], 0);
-            }
-            else
-            {
-                //The owner is the main character, put him as the first element of the men list 
-                StateManager.Instance.MenList.Insert(0, StateManager.Instance.ClubOwner);
-                GameMain.Instance.CharacterMgr.SetActiveMan(StateManager.Instance.ClubOwner, 0);
-            }
-            StateManager.Instance.SpoofActivateMaidObjectFlag = false;
-            
             //init NPC
             StateManager.Instance.NPCList = new List<Maid>();
-            if (step.CharaInitData.NPC != null)
+            if (step.CharaInitData.NPCFemale != null)
             {
-                foreach (var npcRequest in step.CharaInitData.NPC)
+                foreach (var npcRequest in step.CharaInitData.NPCFemale.OrderBy(x => x.Index))
                 {
-                    Maid npc = CharacterHandling.InitNPCMaid(npcRequest.Preset, npcRequest.EmptyLastName);
-                    StateManager.Instance.NPCList.Insert(npcRequest.Index, npc);
+                    Maid npc;
+                    if (npcRequest.Type == ADVStep.CharaInit.NPCFemaleData.NPCType.Official)
+                    {
+                        npc = CharacterHandling.InitNPCMaid(npcRequest.Key);
+                    }
+                    else
+                    {
+                        npc = CharacterHandling.InitModNPCFemale(npcRequest.CustomData);
+                    }
 
+                    StateManager.Instance.NPCList.Insert(npcRequest.Index, npc);
                 }
             }
-            
-            //TODO: Custom Defined NPC?
-            //if (step.CharaInitData.ModNPC != null)
-            //{
-            //    foreach (var modNPCRequest in step.CharaInitData.ModNPC)
-            //    {
-            //        Maid npc = null;
-            //        if (modNPCRequest.IsFemale)
-            //        {
-            //            npc = CharacterHandling.InitModNPCFemale(modNPCRequest.NPCID);
-            //            StateManager.Instance.NPCList.Insert(modNPCRequest.Index, npc);
-            //        }
-            //        else
-            //        {
-            //            npc = CharacterHandling.InitModNPCMale(modNPCRequest.NPCID);
-            //            StateManager.Instance.NPCManList.Insert(modNPCRequest.Index, npc);
-            //        }
-            //    }
-            //}
+
+            StateManager.Instance.NPCManList = new List<Maid>();
+            if (step.CharaInitData.NPCMale != null)
+            {
+                foreach (var npcRequest in step.CharaInitData.NPCMale.OrderBy(x => x.Index))
+                {
+                    Maid npc;
+
+                    npc = CharacterHandling.InitModNPCMale(npcRequest.MaleData);
+
+                    StateManager.Instance.NPCManList.Insert(npcRequest.Index, npc);
+                }
+            }
+
         }
 
         private static void ProcessADVChangeBGM(ADVKagManager instance, ADVStep step)
@@ -246,7 +232,7 @@ namespace COM3D2.CustomEventLoader.Plugin.Core
                 instance.TagSetBg(CreateChangeBackgroundTag(step.Tag));
         }
 
-        private static void ProcessADVCloseMessagePanel(ADVKagManager instance, ADVStep step)
+        private static void ProcessADVFadeOut(ADVKagManager instance, ADVStep step)
         {
             instance.MessageWindowMgr.CloseMessageWindowPanel();
         }
@@ -277,9 +263,7 @@ namespace COM3D2.CustomEventLoader.Plugin.Core
                 else
                 {
                     int index = step.CameraData.LookAtData.ArrayPosition;
-                    //if (step.CameraData.LookAtData.UseRandomPick)
-                    //    index = StateManager.Instance.RandomPickIndexList[step.CameraData.LookAtData.ArrayPosition];
-
+                    
                     if (step.CameraData.LookAtData.Target == ADVStep.Camera.TargetType.Maid)
                         target = StateManager.Instance.SelectedMaidsList[index];
                     else if (step.CameraData.LookAtData.Target == ADVStep.Camera.TargetType.Man)
@@ -395,20 +379,6 @@ namespace COM3D2.CustomEventLoader.Plugin.Core
             }
         }
 
-        internal static void SetCharacterEyeSight(PartyGroup group, EyeSightSetting eyeSightSetting)
-        {
-            if (eyeSightSetting.SourceGroupMember == EyeSightSetting.GroupMemberType.Maid1)
-                SetCharacterEyeSight(group.Maid1, eyeSightSetting);
-            else if (eyeSightSetting.SourceGroupMember == EyeSightSetting.GroupMemberType.Maid2)
-                SetCharacterEyeSight(group.Maid2, eyeSightSetting);
-            else if (eyeSightSetting.SourceGroupMember == EyeSightSetting.GroupMemberType.Man1)
-                SetCharacterEyeSight(group.Man1, eyeSightSetting);
-            else if (eyeSightSetting.SourceGroupMember == EyeSightSetting.GroupMemberType.Man2)
-                SetCharacterEyeSight(group.Man2, eyeSightSetting);
-            else if (eyeSightSetting.SourceGroupMember == EyeSightSetting.GroupMemberType.Man3)
-                SetCharacterEyeSight(group.Man3, eyeSightSetting);
-        }
-
 
         internal static void SetCharacterEyeSight(Maid maid, EyeSightSetting eyeSightSetting)
         {
@@ -507,19 +477,6 @@ namespace COM3D2.CustomEventLoader.Plugin.Core
 
             CharacterHandling.ApplyMotionInfoToCharacter(maid, charaData.MotionInfo);
 
-            if (charaData.ResetIK)
-#if COM3D2_5
-#if UNITY_2022_3   
-                maid.body0.fullBodyIK.AllIKDetach();          
-#endif
-#endif
-#if COM3D2
-                maid.AllIKDetach();
-#endif
-
-            //if (charaData.IKAttach != null)
-            //    foreach (IKAttachInfo info in charaData.IKAttach)
-            //        CharacterHandling.IKAttachBone(info);
 
             if (charaData.PosRot != null)
             {
@@ -545,8 +502,7 @@ namespace COM3D2.CustomEventLoader.Plugin.Core
                 CharacterHandling.AttachObjectToCharacter(maid, charaData.ExtraObjectsInfo.AddObjects);
             }
 
-            if (charaData.WaitLoad)
-                StateManager.Instance.WaitForFullLoadList.Add(maid);
+            StateManager.Instance.WaitForFullLoadList.Add(maid);
         }
 
         private static void ProcessADVGroupIndividual(Maid maid, ADVStep.ShowGroupMotion.DetailSetup setupData)
@@ -616,11 +572,6 @@ namespace COM3D2.CustomEventLoader.Plugin.Core
                             if (group.Man1 != null)
                                 manID = group.Man1.status.guid;
                             
-                            //TODO: need double check on group motion
-                            //if (step.GroupData[i].SexPosID >= 0)
-                            //{
-                            //    group.SexPosID = step.GroupData[i].SexPosID;
-                            //}
                             
                             CharacterHandling.LoadMotionScript(0, false, step.GroupData[i].ScriptFile, step.GroupData[i].ScriptLabel, group.Maid1.status.guid, manID,
                                 false, true, false, false);
@@ -633,18 +584,15 @@ namespace COM3D2.CustomEventLoader.Plugin.Core
                         ProcessADVGroupIndividual(group.Man2, step.GroupData[i].Man2);
                         ProcessADVGroupIndividual(group.Man3, step.GroupData[i].Man3);
                         
-                        if (step.GroupData[i].WaitLoad)
-                        {
-                            StateManager.Instance.WaitForFullLoadList.Add(group.Maid1);
-                            if (group.Maid2 != null)
-                                StateManager.Instance.WaitForFullLoadList.Add(group.Maid2);
-                            if (group.Man1 != null)
-                                StateManager.Instance.WaitForFullLoadList.Add(group.Man1);
-                            if (group.Man2 != null)
-                                StateManager.Instance.WaitForFullLoadList.Add(group.Man2);
-                            if (group.Man3 != null)
-                                StateManager.Instance.WaitForFullLoadList.Add(group.Man3);
-                        }
+                        StateManager.Instance.WaitForFullLoadList.Add(group.Maid1);
+                        if (group.Maid2 != null)
+                            StateManager.Instance.WaitForFullLoadList.Add(group.Maid2);
+                        if (group.Man1 != null)
+                            StateManager.Instance.WaitForFullLoadList.Add(group.Man1);
+                        if (group.Man2 != null)
+                            StateManager.Instance.WaitForFullLoadList.Add(group.Man2);
+                        if (group.Man3 != null)
+                           StateManager.Instance.WaitForFullLoadList.Add(group.Man3);
                         
                         if (step.GroupData[i].PosRot != null)
                             group.SetGroupPosition(step.GroupData[i].PosRot.Pos, step.GroupData[i].PosRot.Rot);
@@ -738,7 +686,7 @@ namespace COM3D2.CustomEventLoader.Plugin.Core
                             if (step.TalkData.VoiceData.ContainsKey(Util.GetPersonalityNameByValue(maid.status.personal.id)))
                                 voiceInfo = step.TalkData.VoiceData[Util.GetPersonalityNameByValue(maid.status.personal.id)];
                         }
-                        
+
                         if (voiceInfo != null)
                         {
                             if (voiceInfo.IsChoppingAudio)
@@ -756,20 +704,36 @@ namespace COM3D2.CustomEventLoader.Plugin.Core
                         
                     }
                 }
+                else
+                {
+                    foreach (var maid in lstMaidToSpeak)
+                    {
+                        if (!maid.boMAN)
+                        {
+                            //no voice file assigned, try to make mouth movement
+                            StateManager.Instance.LipSyncStartTime = DateTime.Now;
+                            StateManager.Instance.LipSyncEndTime = DateTime.Now.AddSeconds(step.TalkData.Text.Length / 4);
+                            
+                            StateManager.Instance.ForceLipSyncingList.Add(maid);
+                            
+                            maid.StartKuchipakuPattern(0f, Constant.LipSyncPattern, true);
+                        }
+                    }
+                }
 
                 if (!isAll)
                 {
                     string voiceFile = "";
                     if (voiceInfo != null)
                         voiceFile = voiceInfo.VoiceFile;
-                    
+
                     //if it is chopped we use the id instead to reload from our own subclip library
                     if (isAudioChopped)
                         voiceFile = step.ID;
                     //single maid speak and no chopping
                     voicePitch = lstMaidToSpeak[0].VoicePitch;
                     speakerName = lstMaidToSpeak[0].status.callName;
-                    
+
                     DisplayAdvText(instance, speakerName, step.TalkData.Text, voiceFile, voicePitch, AudioSourceMgr.Type.VoiceHeroine);
                 }
                 else
@@ -785,6 +749,7 @@ namespace COM3D2.CustomEventLoader.Plugin.Core
         private static string PrepareDialogueText(string text)
         {
             text = PrepareCharacterNameText(text);
+            text = PrepareVariableText(text);
             //text = PrepareRandomGroupCharacterName(text);
 
             text = text.Replace(Constant.JsonReplaceTextLabels.ClubName, GameMain.Instance.CharacterMgr.status.clubName);
@@ -792,23 +757,6 @@ namespace COM3D2.CustomEventLoader.Plugin.Core
 
             return text;
         }
-
-        //private static string PrepareRandomGroupCharacterName(string text)
-        //{
-        //    System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(Constant.JsonReplaceTextLabels.RandomGroupRegex, System.Text.RegularExpressions.RegexOptions.IgnoreCase);
-        //    var matches = regex.Matches(text);
-        //    foreach (System.Text.RegularExpressions.Match match in matches)
-        //    {
-        //        int index = StateManager.Instance.RandomPickIndexList[int.Parse(match.Groups[1].Value)];
-        //        PartyGroup group = StateManager.Instance.PartyGroupList[index];
-        //        if (match.Groups[2].Value == "Maid1Name")
-        //            text = text.Replace(match.Groups[0].Value, group.Maid1.status.callName);
-        //        else if (match.Groups[2].Value == "Maid2Name")
-        //            text = text.Replace(match.Groups[0].Value, group.Maid2.status.callName);
-        //    }
-
-        //    return text;
-        //}
 
         private static string PrepareCharacterNameText(string text)
         {
@@ -854,6 +802,22 @@ namespace COM3D2.CustomEventLoader.Plugin.Core
             return text;
         }
 
+        private static string PrepareVariableText(string text)
+        {
+            System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(Constant.JsonReplaceTextLabels.VariableRegex, System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+            var matches = regex.Matches(text);
+            
+            foreach (System.Text.RegularExpressions.Match match in matches)
+            {
+                if (!StateManager.Instance.CustomVariable.ContainsKey(match.Groups[1].Value))
+                    continue;
+                
+                text = text.Replace(match.Groups[0].Value, StateManager.Instance.CustomVariable[match.Groups[1].Value].ToString());
+            }
+
+            return text;
+        }
+
         private static void ProcessADVEnd(ADVKagManager instance)
         {
             instance.MessageWindowMgr.CloseMessageWindowPanel();
@@ -866,47 +830,46 @@ namespace COM3D2.CustomEventLoader.Plugin.Core
             );
         }
 
-        private static void ProcessADVBranchByPersonality(ADVKagManager instance, ADVStep step)
+        private static void ProcessADVBranch(ADVKagManager instance, ADVStep step)
         {
-            StateManager.Instance.BranchIndex = step.CharaData[0].ArrayPosition;
+            try
+            {
+                if (step.BranchData != null)
+                {
+                    object varObject = StateManager.Instance.CustomVariable[step.BranchData.VariableName];
 
-            string personalityName = Util.GetPersonalityNameByValue(StateManager.Instance.SelectedMaidsList[step.CharaData[0].ArrayPosition].status.personal.id);
+                    var branchList = step.BranchData.BranchList.OrderBy(x => x.Value).ToList();
+                    if (step.BranchData.CompareMethod == Constant.OperatorType.GreaterThan || step.BranchData.CompareMethod == Constant.OperatorType.GreaterThanEqualTo)
+                    {
+                        branchList = step.BranchData.BranchList.OrderByDescending(x => x.Value).ToList();
+                    }
 
-            string nextStepID = step.NextStepID;
-            nextStepID = nextStepID.Replace(Constant.JsonReplaceTextLabels.PersonalityType, personalityName);
+                    foreach (var branchItem in branchList)
+                    {
+                        //by default it is a string
+                        object valueToCompare = branchItem.Value;
+                        if (step.BranchData.VariableType == Constant.VariableType.Integer)
+                            valueToCompare = int.Parse(branchItem.Value);
+                        else if (step.BranchData.VariableType == Constant.VariableType.FloatingPoint)
+                            valueToCompare = double.Parse(branchItem.Value);
+                        else if (step.BranchData.VariableType == Constant.VariableType.Boolean)
+                            valueToCompare = bool.Parse(branchItem.Value);
 
-            ADVSceneProceedToNextStep(nextStepID);
+                        if (Util.ComparativeOperation(step.BranchData.CompareMethod, varObject, valueToCompare))
+                        {
+                            ADVSceneProceedToNextStep(branchItem.NextStepID);
+                            break;
+                        }
+                    }
+
+                }
+            }catch (EvaluateException e)
+            {
+                Util.ShowError(step.ID, e.Message);
+            }
+            
         }
 
-        private static void ProcessADVBranchByMap(ADVKagManager instance, ADVStep step)
-        {
-            string nextStepID = step.NextStepID;
-            nextStepID = nextStepID.Replace(Constant.JsonReplaceTextLabels.MapType, GameMain.Instance.BgMgr.GetBGName());
-
-            ADVSceneProceedToNextStep(nextStepID);
-        }
-
-        //private static void ProcessADVRandomPick(ADVKagManager instance, ADVStep step)
-        //{
-        //    StateManager.Instance.RandomPickIndexList = new List<int>();
-        //    int itemCount = 0;
-        //    if (step.PickData.Type == ADVStep.RandomPick.PickType.Group)
-        //        itemCount = StateManager.Instance.PartyGroupList.Count;
-        //    else if (step.PickData.Type == ADVStep.RandomPick.PickType.Maid)
-        //        itemCount = StateManager.Instance.SelectedMaidsList.Count;
-        //    else if (step.PickData.Type == ADVStep.RandomPick.PickType.Man)
-        //        itemCount = StateManager.Instance.MenList.Count;
-
-        //    if (itemCount == 0)
-        //        return;
-
-        //    while (StateManager.Instance.RandomPickIndexList.Count < step.PickData.Num && StateManager.Instance.RandomPickIndexList.Count < itemCount)
-        //    {
-        //        int rnd = RNG.Random.Next(itemCount);
-        //        if (!StateManager.Instance.RandomPickIndexList.Contains(rnd))
-        //            StateManager.Instance.RandomPickIndexList.Add(rnd);
-        //    }
-        //}
 
         private static void ProcessADVMakeGroup(ADVKagManager instance, ADVStep step)
         {
@@ -1084,43 +1047,189 @@ namespace COM3D2.CustomEventLoader.Plugin.Core
             }
         }
 
-        //private static void ProcessADVShuffle(ADVKagManager instance, ADVStep step)
-        //{
-        //    if (step.ShuffleData != null)
-        //    {
-        //        List<Maid> targetList = null;
-        //        if (step.ShuffleData.TargetList == Constant.TargetType.AllMaids)
-        //            targetList = StateManager.Instance.SelectedMaidsList;
-        //        else if (step.ShuffleData.TargetList == Constant.TargetType.AllMen)
-        //            targetList = StateManager.Instance.MenList;
-        //        else
-        //            return;
+        private static void ProcessADVShowChoiceList(ADVKagManager instance, ADVStep step)
+        {
+            if (step.ChoiceData != null)
+            {
+                //Key: Display Text;    Value.Key: Value;    Value.Value: IsEnabled
+                List<KeyValuePair<string, KeyValuePair<string, bool>>> lstChoice = new List<KeyValuePair<string, KeyValuePair<string, bool>>>();
 
-        //        List<Maid> shuffleList = new List<Maid>();
-        //        Dictionary<int, Maid> keepPositionList = new Dictionary<int, Maid>();
-        //        if (step.ShuffleData.KeepPosition != null)
-        //        {
-        //            foreach (int index in step.ShuffleData.KeepPosition)
-        //                keepPositionList.Add(index, targetList[index]);
+                foreach (var choice in step.ChoiceData.Options)
+                {
+                    lstChoice.Add(new KeyValuePair<string, KeyValuePair<string, bool>>(choice.Value, new KeyValuePair<string, bool>(choice.Key, true)));
+                }
 
-        //            foreach (var kvp in keepPositionList)
-        //                targetList.Remove(kvp.Value);
-        //        }
 
-        //        targetList = CharacterHandling.ShuffleMaidOrManList(targetList);
+                Action<string, string> onClickCallBack = delegate (string displayText, string value)
+                {
+                    //proceed to next step
+                    Util.SetCustomVariable(step.ChoiceData.Variable, value);
+                    ADVSceneProceedToNextStep();
+                };
 
-        //        foreach (var kvp in keepPositionList.OrderByDescending(x => x.Key))
-        //        {
-        //            targetList.Insert(kvp.Key, kvp.Value);
-        //        }
+                instance.MessageWindowMgr.CreateSelectButtons(lstChoice, onClickCallBack);
+            }
+        }
 
-        //        if (step.ShuffleData.TargetList == Constant.TargetType.AllMaids)
-        //            StateManager.Instance.SelectedMaidsList = targetList;
-        //        else if (step.ShuffleData.TargetList == Constant.TargetType.AllMen)
-        //            StateManager.Instance.MenList = targetList;
+        private static void ProcessADVEvaluate(ADVKagManager instance, ADVStep step)
+        {
+            if (step.EvalData != null)
+            {
+                object input1 = GetEvalInputValue(step.EvalData.Input1);
+                object input2 = GetEvalInputValue(step.EvalData.Input2);
+                
+                object result = null;
 
-        //    }
-        //}
+                try
+                {
+
+                    switch (step.EvalData.Operator)
+                    {
+                        case Constant.OperatorType.Assignment:
+                            result = input1;
+                            break;
+                        case Constant.OperatorType.Addition:
+                        case Constant.OperatorType.Subtraction:
+                        case Constant.OperatorType.Multiplication:
+                        case Constant.OperatorType.Division:
+                            result = Util.ArithmeticOperation(step.EvalData.Operator, input1, input2);
+                            break;
+                        case Constant.OperatorType.Equal:
+                        case Constant.OperatorType.NotEqual:
+                        case Constant.OperatorType.GreaterThanEqualTo:
+                        case Constant.OperatorType.GreaterThan:
+                        case Constant.OperatorType.LessThanEqualTo:
+                        case Constant.OperatorType.LessThan:
+                        
+                            result = Util.ComparativeOperation(step.EvalData.Operator, input1, input2);
+                            break;
+                        case Constant.OperatorType.LogicalAnd:
+                        case Constant.OperatorType.LogicalOr:
+                        case Constant.OperatorType.Negation:
+                            result = Util.LogicalOperation(step.EvalData.Operator, input1, input2);
+                            break;
+                        case Constant.OperatorType.Concatenation:
+                            result = input1?.ToString() + input2?.ToString();
+                            break;
+                    }
+
+                    StateManager.Instance.CustomVariable.Remove(step.EvalData.ResultVariableName);
+                    StateManager.Instance.CustomVariable.Add(step.EvalData.ResultVariableName, result);
+                }
+                catch(EvaluateException e)
+                {
+                    Util.ShowError(step.ID, e.Message);
+                }
+
+                
+            }
+        }
+
+
+        private static object GetEvalInputValue(ADVStep.Evaluate.InputDetail inputDetail)
+        {
+            if (inputDetail == null)
+                return null;
+
+            if (inputDetail.SourceType == ADVStep.Evaluate.SourceType.Variable)
+            {
+                if (StateManager.Instance.CustomVariable.ContainsKey(inputDetail.Variable.VariableName))
+                    return StateManager.Instance.CustomVariable[inputDetail.Variable.VariableName];
+            }
+            else if (inputDetail.SourceType == ADVStep.Evaluate.SourceType.CharcterStatus)
+            {
+                Maid target = null;
+                //Get the target
+                if (inputDetail.CharaStatus.ListType == Constant.TargetType.SingleMaid)
+                    target = StateManager.Instance.SelectedMaidsList[inputDetail.CharaStatus.ArrayPosition];
+                else if (inputDetail.CharaStatus.ListType == Constant.TargetType.NPCFemale)
+                    target = StateManager.Instance.NPCList[inputDetail.CharaStatus.ArrayPosition];
+
+                return GetCharacterStatusField(target, inputDetail.CharaStatus.FieldName);
+            }
+            else if (inputDetail.SourceType == ADVStep.Evaluate.SourceType.FixedValue)
+            {
+                switch (inputDetail.FixedValue.FixedValueType)
+                {
+                    case Constant.VariableType.Integer:
+                        return int.Parse(inputDetail.FixedValue.FixedValue);
+                    case Constant.VariableType.FloatingPoint:
+                        return double.Parse(inputDetail.FixedValue.FixedValue);
+                    case Constant.VariableType.Boolean:
+                        return bool.Parse(inputDetail.FixedValue.FixedValue);
+                    default:
+                        return inputDetail.FixedValue.FixedValue;
+                }
+
+
+            }
+
+            return null;
+        }
+
+        private static object GetCharacterStatusField(Maid maid, string status_field)
+        {
+            switch (status_field)
+            {
+                case Constant.CharacterStatusField.Likability:
+                    return maid.status.likability;
+                case Constant.CharacterStatusField.Lovely:
+                    return maid.status.lovely;
+                case Constant.CharacterStatusField.Elegance:
+                    return maid.status.elegance;
+                case Constant.CharacterStatusField.Charm:
+                    return maid.status.charm;
+                case Constant.CharacterStatusField.Care:
+                    return maid.status.care;
+                case Constant.CharacterStatusField.Reception:
+                    return maid.status.reception;
+                case Constant.CharacterStatusField.Cooking:
+                    return maid.status.cooking;
+                case Constant.CharacterStatusField.Dance:
+                    return maid.status.dance;
+                case Constant.CharacterStatusField.Vocal:
+                    return maid.status.vocal;
+                case Constant.CharacterStatusField.NightWorkCount:
+                    return maid.status.playCountNightWork;
+
+                case Constant.CharacterStatusField.Inyoku:
+                    return maid.status.inyoku;
+                case Constant.CharacterStatusField.MValue:
+                    return maid.status.mvalue;
+                case Constant.CharacterStatusField.Hentai:
+                    return maid.status.hentai;
+                case Constant.CharacterStatusField.Houshi:
+                    return maid.status.housi;
+                case Constant.CharacterStatusField.YotogiCount:
+                    return maid.status.playCountYotogi;
+
+                case Constant.CharacterStatusField.HeroineType:
+                    return maid.status.personal.id;
+                case Constant.CharacterStatusField.SexExperienceVaginal:
+                    return maid.status.seikeiken == MaidStatus.Seikeiken.Yes_No || maid.status.seikeiken == MaidStatus.Seikeiken.Yes_Yes;
+                case Constant.CharacterStatusField.SexExperienceAnal:
+                    return maid.status.seikeiken == MaidStatus.Seikeiken.No_Yes || maid.status.seikeiken == MaidStatus.Seikeiken.Yes_Yes;
+
+                case Constant.CharacterStatusField.Height:
+                    return maid.status.body.height;
+                case Constant.CharacterStatusField.Weight:
+                    return maid.status.body.weight;
+                case Constant.CharacterStatusField.Bust:
+                    return maid.status.body.bust;
+                case Constant.CharacterStatusField.Waist:
+                    return maid.status.body.waist;
+                case Constant.CharacterStatusField.Hip:
+                    return maid.status.body.hip;
+                case Constant.CharacterStatusField.Cup:
+                    return maid.status.body.cup;
+
+                case Constant.CharacterStatusField.SexNumOfPeople:
+                    return maid.status.sexPlayNumberOfPeople;
+            }
+            throw new EvaluateException("[CharacterStatusFieldError]: Unknown field name");
+        }
+        
+
 
         internal static void ProcessADVListUpdate(ADVKagManager instance, ADVStep step)
         {
@@ -1146,11 +1255,6 @@ namespace COM3D2.CustomEventLoader.Plugin.Core
                         else if (addData.Type == Constant.TargetType.NPCMale)
                         {
                             sourceList = StateManager.Instance.NPCManList;
-                            targetList = StateManager.Instance.MenList;
-                        }
-                        else if (addData.Type == Constant.TargetType.ConvertedMaid)
-                        {
-                            sourceList = StateManager.Instance.SelectedMaidsList;
                             targetList = StateManager.Instance.MenList;
                         }
                         else
@@ -1197,11 +1301,6 @@ namespace COM3D2.CustomEventLoader.Plugin.Core
                             sourceList = StateManager.Instance.NPCManList;
                             targetList = StateManager.Instance.MenList;
                         }
-                        else if (removeData.Type == Constant.TargetType.ConvertedMaid)
-                        {
-                            sourceList = StateManager.Instance.SelectedMaidsList;
-                            targetList = StateManager.Instance.MenList;
-                        }
                         else
                         {
                             sourceList = StateManager.Instance.NPCList;
@@ -1239,6 +1338,8 @@ namespace COM3D2.CustomEventLoader.Plugin.Core
             if (StateManager.Instance.UndergoingModEventID <= 0 || string.IsNullOrEmpty(StateManager.Instance.CurrentADVStepID))
                 return;
 
+            ResetLipSyncing();
+
             if (nextStepID == "")
                 StateManager.Instance.CurrentADVStepID = StateManager.Instance.ScenarioSteps[StateManager.Instance.CurrentADVStepID].NextStepID;
             else
@@ -1247,10 +1348,14 @@ namespace COM3D2.CustomEventLoader.Plugin.Core
             StateManager.Instance.WaitForUserClick = false;
             StateManager.Instance.WaitForUserInput = false;
             StateManager.Instance.WaitForCameraPanFinish = false;
-
         }
 
-
+        private static void ResetLipSyncing()
+        {
+            foreach (var maid in StateManager.Instance.ForceLipSyncingList)
+                maid.StopKuchipakuPattern();
+            StateManager.Instance.ForceLipSyncingList.Clear();
+        }
 
 
 

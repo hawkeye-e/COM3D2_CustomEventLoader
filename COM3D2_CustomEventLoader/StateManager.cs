@@ -60,11 +60,27 @@ namespace COM3D2.CustomEventLoader.Plugin
         internal List<Maid> WaitForFullLoadList = new List<Maid>();                //flag for waiting the scene to load the required characters etc.
         internal CameraView TargetCameraAfterAnimation = null;
 
+        //these 2 are for return the correct maid / man due to not using the list implemented by KISS
+        internal string processingMaidGUID = "";
+        internal string processingManGUID = "";
+
+        internal bool IsMainGroupMotionScriptFlag = false;
+
+        //For holding custom variables that the scenario creator needs.
+        internal Dictionary<string, object> CustomVariable = new Dictionary<string, object>();
+
+        internal List<Maid> ForceLipSyncingList = new List<Maid>();
+        internal DateTime LipSyncStartTime = DateTime.MinValue;
+        internal DateTime LipSyncEndTime = DateTime.MinValue;
+
         //Triggers
         internal AnimationEndTrigger AnimationChangeTrigger = null;
         internal List<TimeEndTrigger> TimeEndTriggerList = new List<TimeEndTrigger>();
 
         internal DateTime ADVResumeTime = DateTime.MinValue;
+
+        //Developer mode use
+        internal ObjectManagerWindow ObjectWindow;
 
     }
 }
