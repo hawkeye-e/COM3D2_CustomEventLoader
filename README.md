@@ -4,7 +4,7 @@ This mod is aimed to load custom events that created by players.<br>
 <br>
 Please note that there is no event attached in this mod. You will need the Custom Event Editor to create them or get the event zip files shared by others.<br>
 
-For the tools to create custom events, please refer to (https://github.com/hawkeye-e/COM3D2_CustomEventEditor)
+For the tools to create custom events, please refer to [Custom Event Editor](https://github.com/hawkeye-e/COM3D2_CustomEventEditor)
  
 
 
@@ -12,6 +12,9 @@ For the tools to create custom events, please refer to (https://github.com/hawke
 1. Download the plugin from [Releases](https://github.com/hawkeye-e/COM3D2_CustomEventLoader/releases)<br>
 2. Extract the zip file and copy to the "BepInEx\plugins" folder in your installation directory<br>
 3. <b>Create a directory "CustomEvent" (Configurable through F1) in the COM3D2 game folder</b>
+
+## Documentation
+1. [How to use this mod?](https://hawkeye0.blogspot.com/2025/06/how-to-use-custom-event-loader.html)
 
 ## Note:
 1. Please get the correct version of the mod according to your environment.
