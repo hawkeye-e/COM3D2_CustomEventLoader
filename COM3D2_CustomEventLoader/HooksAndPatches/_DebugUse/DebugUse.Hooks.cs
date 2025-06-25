@@ -130,5 +130,12 @@ namespace COM3D2.CustomEventLoader.Plugin.HooksAndPatches.DebugUse
             StateManager.Instance.ObjectWindow = __instance;
         }
 
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(PhotoManEditManager.Controller), nameof(PhotoManEditManager.Controller.SetMenu))]
+        private static void SetMenu(SceneEdit.SMenuItem set_menu)
+        {
+            if (Config.DebugLogMaleBodyPartInfo)
+                CustomEventLoader.Log.LogInfo("[Male Body Part] File Name: " + set_menu.m_strMenuFileName );
+        }
     }
 }

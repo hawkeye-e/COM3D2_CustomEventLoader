@@ -11,7 +11,7 @@ namespace COM3D2.CustomEventLoader.Plugin
     {
         public const string PluginName = "CustomEventLoader";
         public const string GUID = "COM3D2.CustomEventLoader.Plugin";
-        public const string Version = "0.1.0";
+        public const string Version = "0.1.1";
 
         internal static ManualLogSource Log;
 

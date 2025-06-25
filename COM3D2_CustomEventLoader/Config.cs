@@ -60,6 +60,8 @@ namespace COM3D2.CustomEventLoader.Plugin
         internal static bool DebugLogSEInfo { get { return _debugLogSEInfo.Value; } }
         private static ConfigEntry<bool> _debugLogSEInfo;
 
+        internal static bool DebugLogMaleBodyPartInfo { get { return _debugLogMaleBodyPartInfo.Value; } }
+        private static ConfigEntry<bool> _debugLogMaleBodyPartInfo;
 
 
 
@@ -109,6 +111,8 @@ namespace COM3D2.CustomEventLoader.Plugin
             _debugLogBGMInfo = plugin.Config.Bind(DEVELOPER, "Log Load BGM Info", false, "Log the BGM info whenever it is changed in the game.");
 
             _debugLogSEInfo = plugin.Config.Bind(DEVELOPER, "Log Load SE Info", false, "Log the sound effect info whenever it is changed in the game.");
+
+            _debugLogMaleBodyPartInfo = plugin.Config.Bind(DEVELOPER, "Log Male Body Part Info", false, "Log the male body part info whenever it is changed in the male edit screen.");
         }
 
 
