@@ -409,7 +409,8 @@ namespace COM3D2.CustomEventLoader.Plugin.Core
 
             if (!string.IsNullOrEmpty(motionInfo.CustomMotionFile))
             {
-                PlayCustomAnimation(maid, motionInfo.CustomMotionFile, motionInfo.MotionTag, motionInfo.IsLoopMotion, motionInfo.IsBlend, motionInfo.IsQueued);
+                byte[] customAnimationContent = StateManager.Instance.CustomAnimationList[motionInfo.CustomMotionFile];
+                PlayCustomAnimation(maid, customAnimationContent, motionInfo.MotionTag, motionInfo.IsLoopMotion, motionInfo.IsBlend, motionInfo.IsQueued);
             }
             else
             {
@@ -454,23 +455,19 @@ namespace COM3D2.CustomEventLoader.Plugin.Core
             maid.body0.CrossFade(maid.body0.LastAnimeFN, GameUty.FileSystem, additive: false, loop: isLoop, boAddQue: isQueued, fade: fade);
         }
 
-        internal static void PlayCustomAnimation(Maid maid, string fileName, string tag, bool isLoop = true, bool isBlend = false, bool isQueued = false)
+        internal static void PlayCustomAnimation(Maid maid, byte[] animContent, string tag, bool isLoop = true, bool isBlend = false, bool isQueued = false)
         {
-            //TODO: review load custom anim
+            if (maid == null)
+                return;
 
-            //if (maid == null)
-            //    return;
+            float fade = 0f;
+            if (isBlend)
+                fade = ConfigurableValue.AnimationBlendTime;
+            else
+                maid.body0.StopAnime();
 
-            //float fade = 0f;
-            //if (isBlend)
-            //    fade = ConfigurableValue.AnimationBlendTime;
-            //else
-            //    maid.body0.StopAnime();
-
-            //byte[] anim = Helper.CustomAnimLoader.GetAnimData(fileName);
-
-            //maid.body0.LoadAnime(tag, anim, false, isLoop);
-            //maid.body0.CrossFade(maid.body0.LastAnimeFN, anim, additive: false, loop: isLoop, boAddQue: isQueued, fade: fade);
+            maid.body0.LoadAnime(tag, animContent, false, isLoop);
+            maid.body0.CrossFade(maid.body0.LastAnimeFN, animContent, additive: false, loop: isLoop, boAddQue: isQueued, fade: fade);
         }
 
         //function definition copied from KISS code. All load motion script call from the mod should call here so that there is no need to handle the V2 compatible version everywhere

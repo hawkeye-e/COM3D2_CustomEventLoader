@@ -79,6 +79,10 @@ namespace COM3D2.CustomEventLoader.Plugin
 
         internal DateTime ADVResumeTime = DateTime.MinValue;
 
+
+        //Key: Animation Key, Value: file name
+        internal Dictionary<string, byte[]> CustomAnimationList = new Dictionary<string, byte[]>();
+
         //Developer mode use
         internal ObjectManagerWindow ObjectWindow;
 

@@ -161,7 +161,7 @@ namespace COM3D2.CustomEventLoader.Plugin
             public List<string> ValidManType;   //Referencing RandomizeManSetting. Required if ManRequired is non negative.
             public List<NPCFemaleData> NPCFemale;           //Female only
             public List<NPCMaleData> NPCMale;
-
+            public List<CustomAnimation> CustomAnim;
             internal class NPCFemaleData
             {
                 public int Index;               
@@ -182,6 +182,12 @@ namespace COM3D2.CustomEventLoader.Plugin
                 public int Index;               
                 public ModNPCMale MaleData;
                 
+            }
+
+            internal class CustomAnimation
+            {
+                public string Key;
+                public string FileName;
             }
         }
 

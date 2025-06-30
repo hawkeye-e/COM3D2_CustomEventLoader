@@ -1,6 +1,7 @@
 ﻿using BepInEx.Logging;
 using COM3D2.CustomEventLoader.Plugin.Trigger;
 using HarmonyLib;
+using ICSharpCode.SharpZipLib.Zip;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -204,6 +205,24 @@ namespace COM3D2.CustomEventLoader.Plugin.Core
 
                     StateManager.Instance.NPCManList.Insert(npcRequest.Index, npc);
                 }
+            }
+
+            //Init Custom Anim List
+            StateManager.Instance.CustomAnimationList = new Dictionary<string, byte[]>();
+            if (step.CharaInitData.CustomAnim != null)
+            {
+                int backupCodePage = ZipConstants.DefaultCodePage;
+                ZipConstants.DefaultCodePage = System.Text.Encoding.UTF8.CodePage;
+
+                foreach (var anim in step.CharaInitData.CustomAnim)
+                {
+                    var scnDef = Util.GetCurrentScenarioDefinition();
+                    
+                    byte[] fileContent = ScenarioFileHandling.GetCustomEventFileContentInByteArray(scnDef.FilePath, anim.FileName);
+                    StateManager.Instance.CustomAnimationList.Add(anim.Key, fileContent);
+                }
+
+                ZipConstants.DefaultCodePage = backupCodePage;
             }
 
         }
