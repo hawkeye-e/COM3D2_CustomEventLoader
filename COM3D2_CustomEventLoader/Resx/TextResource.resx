@@ -118,6 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="CandlePattern" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CandlePattern.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
+  </data>
   <data name="CharacterEffect" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CharacterEffect.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
   </data>
@@ -129,5 +132,11 @@
   </data>
   <data name="SemenPattern" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SemenPattern.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
+  </data>
+  <data name="SlapMarkPattern" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SlapMarkPattern.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
+  </data>
+  <data name="WhipMarkPattern" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WhipMarkPattern.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;shift_jis</value>
   </data>
 </root>

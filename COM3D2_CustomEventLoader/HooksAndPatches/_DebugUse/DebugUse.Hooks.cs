@@ -96,12 +96,12 @@ namespace COM3D2.CustomEventLoader.Plugin.HooksAndPatches.DebugUse
         [HarmonyPatch(typeof(BgMgr), nameof(BgMgr.AddPrefabToBg))]
         private static void AddPrefabToBg(string f_strSrc, string f_strName, string f_strDest, Vector3 f_vPos, Vector3 f_vRot)
         {
-            CustomEventLoader.Log.LogInfo("AddPrefabToBg f_strSrc: " + f_strSrc
-                + ", f_strName: " + f_strName
-                + ", f_strDest: " + f_strDest
-                + ", f_vPos: " + f_vPos
-                + ", f_vRot: " + f_vRot
-                );
+            //CustomEventLoader.Log.LogInfo("AddPrefabToBg f_strSrc: " + f_strSrc
+            //    + ", f_strName: " + f_strName
+            //    + ", f_strDest: " + f_strDest
+            //    + ", f_vPos: " + f_vPos
+            //    + ", f_vRot: " + f_vRot
+            //    );
 
         }
 

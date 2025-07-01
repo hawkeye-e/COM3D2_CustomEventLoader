@@ -1,0 +1,107 @@
+{
+  "Vagina": {
+    "Slotname": "body",
+    "Part": "Hibu",
+    "MatNo": 0,
+    "PropName": [
+      "_MainTex",
+      "_ShadowTex"
+    ],
+    "LayerNo": 13,
+    "FileNameRaw": [
+      "Muchi/muchi004:Muchi/muchi005"
+    ],
+    "BlendMode": "Alpha",
+    "Add": true,
+    "XRangeRaw": [ "481:540" ],
+    "YRangeRaw": [ "854:883" ],
+    "RotRangeRaw": [ "300:420" ],
+    "ScaleRaw": [ "1.0:1.0" ],
+    "NoTransform": false,
+
+    "Alpha": 1,
+    "TargetBodyTexSize": 1024,
+    "SplashCount": 1
+  },
+
+  "Back": {
+    "Slotname": "body",
+    "Part": "Senaka",
+    "MatNo": 0,
+    "PropName": [
+      "_MainTex",
+      "_ShadowTex"
+    ],
+    "LayerNo": 13,
+    "FileNameRaw": [
+      "Muchi/muchi003:Muchi/muchi003:Muchi/muchi004"
+    ],
+    "BlendMode": "Alpha",
+    "Add": true,
+    "XRangeRaw": [ "436:594" ],
+    "YRangeRaw": [ "97:283" ],
+    "RotRangeRaw": [ "0:360" ],
+    "ScaleRaw": [ "1.0:1.0" ],
+    "NoTransform": false,
+
+    "Alpha": 1,
+    "TargetBodyTexSize": 1024,
+    "SplashCount": 1
+  },
+
+  "Breast": {
+    "Slotname": "body",
+    "Part": "Mune",
+    "MatNo": 0,
+    "PropName": [
+      "_MainTex",
+      "_ShadowTex"
+    ],
+    "LayerNo": 13,
+    "FileNameRaw": [
+      "Muchi/muchi004",
+      "Muchi/muchi004"
+    ],
+    "BlendMode": "Alpha",
+    "Add": true,
+    "XRangeRaw": [ "419:486", "546:605" ],
+    "YRangeRaw": [ "437:488", "437:488" ],
+    "RotRangeRaw": [ "0:360", "0:360" ],
+    "ScaleRaw": [ "1.0:1.0", "1.0:1.0" ],
+    "NoTransform": false,
+
+    "Alpha": 1,
+    "TargetBodyTexSize": 1024,
+    "SplashCount": 2
+  },
+
+  "Leg": {
+    "Slotname": "body",
+    "Part": "Hutomomo",
+    "MatNo": 0,
+    "PropName": [
+      "_MainTex",
+      "_ShadowTex"
+    ],
+    "LayerNo": 13,
+    "FileNameRaw": [
+      "Muchi/muchi003:Muchi/muchi004:Muchi/muchi005",
+      "Muchi/muchi003:Muchi/muchi004:Muchi/muchi005"
+    ],
+    "BlendMode": "Alpha",
+    "Add": true,
+    "XRangeRaw": [ "119:186", "838:905" ],
+    "YRangeRaw": [ "71:250", "71:250" ],
+    "RotRangeRaw": [ "0:360", "0:360" ],
+    "ScaleRaw": [ "1.0:1.0", "1.0:1.0" ],
+    "NoTransform": false,
+
+    "Alpha": 1,
+    "TargetBodyTexSize": 1024,
+    "SplashCount": 2
+  }
+
+
+}
+
+

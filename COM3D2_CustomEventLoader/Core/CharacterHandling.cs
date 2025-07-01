@@ -518,7 +518,7 @@ namespace COM3D2.CustomEventLoader.Plugin.Core
          * Due to TagTexMulAdd will call GetMaidAndMan function which will mess up the spoofing logic for other parts, I dont directly call TagTexMulAdd but follow the logic inside.
            Drawback: There are some special handlings on CRC body in TagTexMulAdd, so the effect wont apply in 3.0 version(I have no idea whether this mod will work or not in v3.0 anyway)
          */
-        internal static void AddSemenTexture(Maid maid, SemenPattern pattern)
+        internal static void AddTexture(Maid maid, TexturePattern pattern)
         {
             if (maid == null)
                 return;
@@ -548,16 +548,16 @@ namespace COM3D2.CustomEventLoader.Plugin.Core
                 maid.body0.MulTexProc(slot);
         }
 
-        internal static void RemoveSemenTexture(Maid maid)
+        internal static void RemoveTexture(Maid maid, int layer)
         {
             if (maid != null)
             {
-                maid.body0.MulTexRemove(SemenPattern.SlotType.Body, SemenPattern.MaterialType.Body, SemenPattern.PropType.MainTexture, SemenPattern.SemenLayer);
-                maid.body0.MulTexRemove(SemenPattern.SlotType.Body, SemenPattern.MaterialType.Body, SemenPattern.PropType.ShadowTexture, SemenPattern.SemenLayer);
-                maid.body0.MulTexRemove(SemenPattern.SlotType.Head, SemenPattern.MaterialType.Head, SemenPattern.PropType.MainTexture, SemenPattern.SemenLayer);
-                maid.body0.MulTexRemove(SemenPattern.SlotType.Head, SemenPattern.MaterialType.Head, SemenPattern.PropType.ShadowTexture, SemenPattern.SemenLayer);
-                maid.body0.MulTexProc(SemenPattern.SlotType.Body);
-                maid.body0.MulTexProc(SemenPattern.SlotType.Head);
+                maid.body0.MulTexRemove(TexturePattern.SlotType.Body, TexturePattern.MaterialType.Body, TexturePattern.PropType.MainTexture, layer);
+                maid.body0.MulTexRemove(TexturePattern.SlotType.Body, TexturePattern.MaterialType.Body, TexturePattern.PropType.ShadowTexture, layer);
+                maid.body0.MulTexRemove(TexturePattern.SlotType.Head, TexturePattern.MaterialType.Head, TexturePattern.PropType.MainTexture, layer);
+                maid.body0.MulTexRemove(TexturePattern.SlotType.Head, TexturePattern.MaterialType.Head, TexturePattern.PropType.ShadowTexture, layer);
+                maid.body0.MulTexProc(TexturePattern.SlotType.Body);
+                maid.body0.MulTexProc(TexturePattern.SlotType.Head);
             }
         }
 

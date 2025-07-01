@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace COM3D2.CustomEventLoader.Plugin
@@ -12,8 +13,8 @@ namespace COM3D2.CustomEventLoader.Plugin
         //Key: EffectID
         public static Dictionary<string, CharacterEffect> CharacterEffectList;
 
-        //Key: Pattern ID
-        public static Dictionary<string, SemenPattern> SemenPatternList;
+        //Key: Constant.TextureType, Inner Key: PatternID
+        public static Dictionary<string, Dictionary<string, TexturePattern>> TexturePatternList;
 
         public ModUseData()
         {
@@ -26,11 +27,27 @@ namespace COM3D2.CustomEventLoader.Plugin
 
             CharacterEffectList = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, CharacterEffect>>(ModResources.TextResource.CharacterEffect);
 
-            SemenPatternList = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, SemenPattern>>(ModResources.TextResource.SemenPattern);
-            foreach (var kvp in SemenPatternList)
-            {
+            var semenPatternList = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, TexturePattern>>(ModResources.TextResource.SemenPattern);
+            foreach (var kvp in semenPatternList)
                 kvp.Value.PostInitDataProcess();
-            }
+
+            var whipMarkPatternList = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, TexturePattern>>(ModResources.TextResource.WhipMarkPattern);
+            foreach (var kvp in whipMarkPatternList)
+                kvp.Value.PostInitDataProcess();
+
+            var candlePatternList = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, TexturePattern>>(ModResources.TextResource.CandlePattern);
+            foreach (var kvp in candlePatternList)
+                kvp.Value.PostInitDataProcess();
+
+            var slapMarkPatternList = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, TexturePattern>>(ModResources.TextResource.SlapMarkPattern);
+            foreach (var kvp in slapMarkPatternList)
+                kvp.Value.PostInitDataProcess();
+
+            TexturePatternList = new Dictionary<string, Dictionary<string, TexturePattern>>();
+            TexturePatternList.Add(Constant.TextureType.Semen, semenPatternList);
+            TexturePatternList.Add(Constant.TextureType.WhipMark, whipMarkPatternList);
+            TexturePatternList.Add(Constant.TextureType.Candle, candlePatternList);
+            TexturePatternList.Add(Constant.TextureType.SlapMark, slapMarkPatternList);
         }
 
     }

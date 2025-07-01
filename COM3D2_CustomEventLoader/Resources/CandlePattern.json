@@ -1,0 +1,134 @@
+{
+  "Vagina": {
+    "Slotname": "body",
+    "Part": "Hibu",
+    "MatNo": 0,
+    "PropName": [
+      "_MainTex",
+      "_ShadowTex"
+    ],
+    "LayerNo": 15,
+    "FileNameRaw": [
+      "Rou/rou001:Rou/rou002:Rou/rou003:Rou/rou004:Rou/rou005",
+      "Rou/rou001:Rou/rou002:Rou/rou003:Rou/rou004:Rou/rou005",
+      "Rou/rou001:Rou/rou002:Rou/rou003:Rou/rou004:Rou/rou005"
+    ],
+    "BlendMode": "Alpha",
+    "Add": true,
+    "XRangeRaw": [ "472:492", "501:521", "529:549" ],
+    "YRangeRaw": [ "834:894", "834:894", "834:894" ],
+    "RotRangeRaw": [ "330:390", "330:390", "330:390" ],
+    "ScaleRaw": [ "1.0:1.0", "1.0:1.0", "1.0:1.0" ],
+    "NoTransform": false,
+
+    "Alpha": 1,
+    "TargetBodyTexSize": 1024,
+    "SplashCount": 3
+  },
+
+  "Back": {
+    "Slotname": "body",
+    "Part": "Senaka",
+    "MatNo": 0,
+    "PropName": [
+      "_MainTex",
+      "_ShadowTex"
+    ],
+    "LayerNo": 15,
+    "FileNameRaw": [
+      "Rou/rou001:Rou/rou002:Rou/rou003:Rou/rou004:Rou/rou005",
+      "Rou/rou001:Rou/rou002:Rou/rou003:Rou/rou004:Rou/rou005",
+      "Rou/rou001:Rou/rou002:Rou/rou003:Rou/rou004:Rou/rou005",
+      "Rou/rou001:Rou/rou002:Rou/rou003:Rou/rou004:Rou/rou005",
+      "Rou/rou001:Rou/rou002:Rou/rou003:Rou/rou004:Rou/rou005",
+      "Rou/rou001:Rou/rou002:Rou/rou003:Rou/rou004:Rou/rou005",
+      "Rou/rou001:Rou/rou002:Rou/rou003:Rou/rou004:Rou/rou005",
+      "Rou/rou001:Rou/rou002:Rou/rou003:Rou/rou004:Rou/rou005",
+      "Rou/rou001:Rou/rou002:Rou/rou003:Rou/rou004:Rou/rou005",
+      "Rou/rou001:Rou/rou002:Rou/rou003:Rou/rou004:Rou/rou005",
+      "Rou/rou001:Rou/rou002:Rou/rou003:Rou/rou004:Rou/rou005",
+      "Rou/rou001:Rou/rou002:Rou/rou003:Rou/rou004:Rou/rou005"
+    ],
+    "BlendMode": "Alpha",
+    "Add": true,
+    "XRangeRaw": [ "396:418", "428:463", "475:510", "520:555", "565:600", "600:609", "396:418", "428:463", "475:510", "520:555", "565:600", "600:609" ],
+    "YRangeRaw": [ "256:289", "201:299", "201:309", "261:309", "201:299", "256:289", "256:289", "201:299", "201:309", "261:309", "201:299", "256:289" ],
+    "RotRangeRaw": [ "135:225", "135:225", "135:225", "135:225", "135:225", "135:225", "135:225", "135:225", "135:225", "135:225", "135:225", "135:225" ],
+    "ScaleRaw": [ "1.0:1.0", "1.0:1.0", "1.0:1.0", "1.0:1.0", "1.0:1.0", "1.0:1.0", "1.0:1.0", "1.0:1.0", "1.0:1.0", "1.0:1.0", "1.0:1.0", "1.0:1.0" ],
+    "NoTransform": false,
+
+    "Alpha": 1,
+    "TargetBodyTexSize": 1024,
+    "SplashCount": 12
+  },
+
+  "Breast": {
+    "Slotname": "body",
+    "Part": "Mune",
+    "MatNo": 0,
+    "PropName": [
+      "_MainTex",
+      "_ShadowTex"
+    ],
+    "LayerNo": 15,
+    "FileNameRaw": [
+      "Rou/rou001:Rou/rou002:Rou/rou003:Rou/rou004:Rou/rou005",
+      "Rou/rou001:Rou/rou002:Rou/rou003:Rou/rou004:Rou/rou005",
+      "Rou/rou001:Rou/rou002:Rou/rou003:Rou/rou004:Rou/rou005",
+      "Rou/rou001:Rou/rou002:Rou/rou003:Rou/rou004:Rou/rou005",
+      "Rou/rou001:Rou/rou002:Rou/rou003:Rou/rou004:Rou/rou005",
+      "Rou/rou001:Rou/rou002:Rou/rou003:Rou/rou004:Rou/rou005"
+    ],
+    "BlendMode": "Alpha",
+    "Add": true,
+    "XRangeRaw": [ "407:435", "441:454", "485:493", "532:555", "561:574", "581:610" ],
+    "YRangeRaw": [ "434:486", "425:464", "463:463", "434:463", "425:464", "434:486" ],
+    "RotRangeRaw": [ "315:405", "315:405", "315:405", "315:405", "315:405", "315:405" ],
+    "ScaleRaw": [ "1.0:1.0", "1.0:1.0", "1.0:1.0", "1.0:1.0", "1.0:1.0", "1.0:1.0" ],
+    "NoTransform": false,
+
+    "Alpha": 1,
+    "TargetBodyTexSize": 1024,
+    "SplashCount": 6
+  },
+
+  "Leg": {
+    "Slotname": "body",
+    "Part": "Hutomomo",
+    "MatNo": 0,
+    "PropName": [
+      "_MainTex",
+      "_ShadowTex"
+    ],
+    "LayerNo": 15,
+    "FileNameRaw": [
+      "Rou/rou001:Rou/rou002:Rou/rou003:Rou/rou004:Rou/rou005",
+      "Rou/rou001:Rou/rou002:Rou/rou003:Rou/rou004:Rou/rou005",
+      "Rou/rou001:Rou/rou002:Rou/rou003:Rou/rou004:Rou/rou005",
+      "Rou/rou001:Rou/rou002:Rou/rou003:Rou/rou004:Rou/rou005",
+      "Rou/rou001:Rou/rou002:Rou/rou003:Rou/rou004:Rou/rou005",
+      "Rou/rou001:Rou/rou002:Rou/rou003:Rou/rou004:Rou/rou005",
+      "Rou/rou001:Rou/rou002:Rou/rou003:Rou/rou004:Rou/rou005",
+      "Rou/rou001:Rou/rou002:Rou/rou003:Rou/rou004:Rou/rou005",
+      "Rou/rou001:Rou/rou002:Rou/rou003:Rou/rou004:Rou/rou005",
+      "Rou/rou001:Rou/rou002:Rou/rou003:Rou/rou004:Rou/rou005",
+      "Rou/rou001:Rou/rou002:Rou/rou003:Rou/rou004:Rou/rou005",
+      "Rou/rou001:Rou/rou002:Rou/rou003:Rou/rou004:Rou/rou005"
+    ],
+    "BlendMode": "Alpha",
+    "Add": true,
+    "XRangeRaw": [ "113:142", "163:183", "841:861", "882:911", "142:165", "859:882", "113:142", "163:183", "841:861", "882:911", "142:165", "859:882" ],
+    "YRangeRaw": [ "73:158", "93:161", "93:161", "73:158", "189:263", "189:263", "73:158", "93:161", "93:161", "73:158", "189:263", "189:263" ],
+    "RotRangeRaw": [ "315:405", "315:405", "315:405", "315:405", "315:405", "315:405", "315:405", "315:405", "315:405", "315:405", "315:405", "315:405" ],
+    "ScaleRaw": [ "1.0:1.0", "1.0:1.0", "1.0:1.0", "1.0:1.0", "1.0:1.0", "1.0:1.0", "1.0:1.0", "1.0:1.0", "1.0:1.0", "1.0:1.0", "1.0:1.0", "1.0:1.0" ],
+    "NoTransform": false,
+
+    "Alpha": 1,
+    "TargetBodyTexSize": 1024,
+    "SplashCount": 12
+  }
+
+
+}
+
+

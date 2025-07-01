@@ -975,32 +975,41 @@ namespace COM3D2.CustomEventLoader.Plugin.Core
             {
                 foreach (ADVStep.Texture data in step.TextureData)
                 {
+                    Dictionary<string, TexturePattern> dictPattern = null;
                     if (data.Type == Constant.TextureType.Semen)
+                        dictPattern = ModUseData.TexturePatternList[Constant.TextureType.Semen];
+                    else if (data.Type == Constant.TextureType.WhipMark)
+                        dictPattern = ModUseData.TexturePatternList[Constant.TextureType.WhipMark];
+                    else if (data.Type == Constant.TextureType.Candle)
+                        dictPattern = ModUseData.TexturePatternList[Constant.TextureType.Candle];
+                    else if (data.Type == Constant.TextureType.SlapMark)
+                        dictPattern = ModUseData.TexturePatternList[Constant.TextureType.SlapMark];
+
+                    //skip if invalid pattern type
+                    if (dictPattern == null)
+                        continue;
+
+                    if (data.TargetType == Constant.TargetType.AllMaids)
                     {
-                        if (data.TargetType == Constant.TargetType.AllMaids)
+                        foreach (Maid maid in StateManager.Instance.SelectedMaidsList)
                         {
-                            foreach (Maid maid in StateManager.Instance.SelectedMaidsList)
-                            {
-                                foreach (string bodyPart in data.BodyTarget)
-                                    if (ModUseData.SemenPatternList.ContainsKey(bodyPart))
-                                        CharacterHandling.AddSemenTexture(maid, ModUseData.SemenPatternList[bodyPart]);
-                            }
-
-                        }
-                        else
-                        {
-                            Maid maid = null;
-                            if (data.TargetType == Constant.TargetType.SingleMaid)
-                                maid = StateManager.Instance.SelectedMaidsList[data.IndexPosition];
-                            else if (data.TargetType == Constant.TargetType.NPCFemale)
-                                maid = StateManager.Instance.NPCList[data.IndexPosition];
-
                             foreach (string bodyPart in data.BodyTarget)
-                                if (ModUseData.SemenPatternList.ContainsKey(bodyPart))
-                                    CharacterHandling.AddSemenTexture(maid, ModUseData.SemenPatternList[bodyPart]);
+                                if (dictPattern.ContainsKey(bodyPart))
+                                    CharacterHandling.AddTexture(maid, dictPattern[bodyPart]);
                         }
 
+                    }
+                    else
+                    {
+                        Maid maid = null;
+                        if (data.TargetType == Constant.TargetType.SingleMaid)
+                            maid = StateManager.Instance.SelectedMaidsList[data.IndexPosition];
+                        else if (data.TargetType == Constant.TargetType.NPCFemale)
+                            maid = StateManager.Instance.NPCList[data.IndexPosition];
 
+                        foreach (string bodyPart in data.BodyTarget)
+                            if (dictPattern.ContainsKey(bodyPart))
+                                CharacterHandling.AddTexture(maid, dictPattern[bodyPart]);
                     }
                 }
             }
@@ -1012,23 +1021,33 @@ namespace COM3D2.CustomEventLoader.Plugin.Core
             {
                 foreach (ADVStep.Texture data in step.TextureData)
                 {
+                    int layer = -1;
                     if (data.Type == Constant.TextureType.Semen)
-                    {
-                        if (data.TargetType == Constant.TargetType.AllMaids)
-                        {
-                            foreach (Maid maid in StateManager.Instance.SelectedMaidsList)
-                                CharacterHandling.RemoveSemenTexture(maid);
-                        }
-                        else
-                        {
-                            Maid maid = null;
-                            if (data.TargetType == Constant.TargetType.SingleMaid)
-                                maid = StateManager.Instance.SelectedMaidsList[data.IndexPosition];
-                            else if (data.TargetType == Constant.TargetType.NPCFemale)
-                                maid = StateManager.Instance.NPCList[data.IndexPosition];
+                        layer = TexturePattern.SemenLayer;
+                    else if (data.Type == Constant.TextureType.WhipMark)
+                        layer = TexturePattern.WhipMarkLayer;
+                    else if (data.Type == Constant.TextureType.Candle)
+                        layer = TexturePattern.CandleLayer;
+                    else if (data.Type == Constant.TextureType.SlapMark)
+                        layer = TexturePattern.SlapMarkLayer;
 
-                            CharacterHandling.RemoveSemenTexture(maid);
-                        }
+                    if (layer < 0)
+                        continue;
+
+                    if (data.TargetType == Constant.TargetType.AllMaids)
+                    {
+                        foreach (Maid maid in StateManager.Instance.SelectedMaidsList)
+                            CharacterHandling.RemoveTexture(maid, layer);
+                    }
+                    else
+                    {
+                        Maid maid = null;
+                        if (data.TargetType == Constant.TargetType.SingleMaid)
+                            maid = StateManager.Instance.SelectedMaidsList[data.IndexPosition];
+                        else if (data.TargetType == Constant.TargetType.NPCFemale)
+                            maid = StateManager.Instance.NPCList[data.IndexPosition];
+
+                        CharacterHandling.RemoveTexture(maid, layer);
                     }
                 }
             }

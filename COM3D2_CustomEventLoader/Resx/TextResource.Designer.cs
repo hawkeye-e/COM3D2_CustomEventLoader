@@ -62,9 +62,36 @@ namespace ModResources {
         
         /// <summary>
         ///   Looks up a localized string similar to {
+        ///  &quot;Vagina&quot;: {
+        ///    &quot;Slotname&quot;: &quot;body&quot;,
+        ///    &quot;Part&quot;: &quot;Hibu&quot;,
+        ///    &quot;MatNo&quot;: 0,
+        ///    &quot;PropName&quot;: [
+        ///      &quot;_MainTex&quot;,
+        ///      &quot;_ShadowTex&quot;
+        ///    ],
+        ///    &quot;LayerNo&quot;: 15,
+        ///    &quot;FileNameRaw&quot;: [
+        ///      &quot;Rou/rou001:Rou/rou002:Rou/rou003:Rou/rou004:Rou/rou005&quot;,
+        ///      &quot;Rou/rou001:Rou/rou002:Rou/rou003:Rou/rou004:Rou/rou005&quot;,
+        ///      &quot;Rou/rou001:Rou/rou002:Rou/rou003:Rou/rou004:Rou/rou005&quot;
+        ///    ],
+        ///    &quot;BlendMode&quot;: &quot;Alpha&quot;,
+        ///    &quot;Add&quot;: true,
+        ///    &quot;XRangeRaw&quot;: [ &quot;472:492&quot;, &quot;501:521&quot;, &quot;529:549&quot; ],
+        ///    &quot;YRangeRaw&quot;: [ &quot;8 [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string CandlePattern {
+            get {
+                return ResourceManager.GetString("CandlePattern", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {
         ///  &quot;Breath&quot;: {
         ///    &quot;Prefab&quot;: &quot;Particle/pToiki&quot;,
-        ///    &quot;Name&quot;: &quot;WildParty_Mod_Breath&quot;,
+        ///    &quot;Name&quot;: &quot;CustomEvent_Mod_Breath&quot;,
         ///    &quot;TargetBone&quot;: &quot;Bip01 Head&quot;,
         ///    &quot;Offset&quot;: {
         ///      &quot;PosString&quot;: &quot;0.04, 0.08, 0&quot;,
@@ -74,7 +101,7 @@ namespace ModResources {
         ///
         ///  &quot;SexualFluid1&quot;: {
         ///    &quot;Prefab&quot;: &quot;Particle/pPistonEasy_cm3D2&quot;,
-        ///    &quot;Name&quot;: &quot;WildParty_Mod_SexualFluid1&quot;,
+        ///    &quot;Name&quot;: &quot;CustomEvent_Mod_SexualFluid1&quot;,
         ///    &quot;TargetBone&quot;: &quot;_IK_vagina&quot;,
         ///    &quot;Offset&quot;: {
         ///      &quot;PosString&quot;: &quot;0, 0, 0.01&quot;,
@@ -83,7 +110,7 @@ namespace ModResources {
         ///  },
         ///
         ///  &quot;SexualFluid2&quot;: {
-        ///    &quot;Prefab&quot;: &quot;Particle/p [rest of string was truncated]&quot;;.
+        ///    &quot;Prefab&quot;: &quot;Partic [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string CharacterEffect {
             get {
@@ -160,6 +187,70 @@ namespace ModResources {
         internal static string SemenPattern {
             get {
                 return ResourceManager.GetString("SemenPattern", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {
+        ///  &quot;Vagina&quot;: {
+        ///    &quot;Slotname&quot;: &quot;body&quot;,
+        ///    &quot;Part&quot;: &quot;Hibu&quot;,
+        ///    &quot;MatNo&quot;: 0,
+        ///    &quot;PropName&quot;: [
+        ///      &quot;_MainTex&quot;,
+        ///      &quot;_ShadowTex&quot;
+        ///    ],
+        ///    &quot;LayerNo&quot;: 13,
+        ///    &quot;FileNameRaw&quot;: [
+        ///      &quot;Muchi/muchi004:Muchi/muchi005&quot;
+        ///    ],
+        ///    &quot;BlendMode&quot;: &quot;Alpha&quot;,
+        ///    &quot;Add&quot;: true,
+        ///    &quot;XRangeRaw&quot;: [ &quot;481:540&quot; ],
+        ///    &quot;YRangeRaw&quot;: [ &quot;854:883&quot; ],
+        ///    &quot;RotRangeRaw&quot;: [ &quot;300:420&quot; ],
+        ///    &quot;ScaleRaw&quot;: [ &quot;1.0:1.0&quot; ],
+        ///    &quot;NoTransform&quot;: false,
+        ///
+        ///    &quot;Alpha&quot;: 1,
+        ///    &quot;TargetBodyTexSize&quot;: 1024,
+        ///    &quot;SplashCount&quot;: 1 [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string SlapMarkPattern {
+            get {
+                return ResourceManager.GetString("SlapMarkPattern", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {
+        ///  &quot;Vagina&quot;: {
+        ///    &quot;Slotname&quot;: &quot;body&quot;,
+        ///    &quot;Part&quot;: &quot;Hibu&quot;,
+        ///    &quot;MatNo&quot;: 0,
+        ///    &quot;PropName&quot;: [
+        ///      &quot;_MainTex&quot;,
+        ///      &quot;_ShadowTex&quot;
+        ///    ],
+        ///    &quot;LayerNo&quot;: 13,
+        ///    &quot;FileNameRaw&quot;: [
+        ///      &quot;Muchi/muchi004:Muchi/muchi005&quot;
+        ///    ],
+        ///    &quot;BlendMode&quot;: &quot;Alpha&quot;,
+        ///    &quot;Add&quot;: true,
+        ///    &quot;XRangeRaw&quot;: [ &quot;481:540&quot; ],
+        ///    &quot;YRangeRaw&quot;: [ &quot;854:883&quot; ],
+        ///    &quot;RotRangeRaw&quot;: [ &quot;300:420&quot; ],
+        ///    &quot;ScaleRaw&quot;: [ &quot;1.0:1.0&quot; ],
+        ///    &quot;NoTransform&quot;: false,
+        ///
+        ///    &quot;Alpha&quot;: 1,
+        ///    &quot;TargetBodyTexSize&quot;: 1024,
+        ///    &quot;SplashCount&quot;: 1 [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string WhipMarkPattern {
+            get {
+                return ResourceManager.GetString("WhipMarkPattern", resourceCulture);
             }
         }
     }

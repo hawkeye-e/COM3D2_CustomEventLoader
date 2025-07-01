@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace COM3D2.CustomEventLoader.Plugin
 {
-    internal class SemenPattern
+    internal class TexturePattern
     {
         public string Slotname;
         public string Part;                         //The "Part" variable is supposed to be for calling TagTexMulAdd used. 
@@ -123,6 +123,11 @@ namespace COM3D2.CustomEventLoader.Plugin
             public const string MainTexture = "_MainTex";
             public const string ShadowTexture = "_ShadowTex";
         }
+
+        public const int WhipMarkLayer = 13;
+        public const int SlapMarkLayer = 13;
+        public const int CandleLayer = 15;
         public const int SemenLayer = 18;
+        
     }
 }

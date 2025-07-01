@@ -1,0 +1,92 @@
+{
+  "Face": {
+    "Slotname": "head",
+    "Part": "",
+    "MatNo": 5,
+    "PropName": [
+      "_MainTex",
+      "_ShadowTex"
+    ],
+    "LayerNo": 13,
+    "FileNameRaw": [
+      "Span/span001"
+    ],
+    "BlendMode": "Alpha",
+    "Add": true,
+    "XRangeRaw": [ "665:689" ],
+    "YRangeRaw": [ "727:757" ],
+    "RotRangeRaw": [ "345:375" ],
+    "ScaleRaw": [ "3.0:4.0" ],
+    "NoTransform": false,
+
+    "Alpha": 1,
+    "TargetBodyTexSize": 1024,
+    "SplashCount": 1
+  },
+
+  "Breast": {
+    "Slotname": "body",
+    "Part": "Mune",
+    "MatNo": 0,
+    "PropName": [
+      "_MainTex",
+      "_ShadowTex"
+    ],
+    "LayerNo": 13,
+    "FileNameRaw": [
+      "Span/span002",
+      "Span/span002",
+      "Span/span002",
+      "Span/span002",
+      "Span/span002",
+      "Span/span002",
+      "Span/span002:Span/span003:Span/span003:Span/span003",
+      "Span/span002:Span/span003:Span/span003:Span/span003",
+      "Span/span004",
+      "Span/span004"
+    ],
+    "BlendMode": "Alpha",
+    "Add": true,
+    "XRangeRaw": [ "443:479", "417:436", "545:581", "588:607", "430:433", "591:594", "481:485", "539:543", "486:497", "350:370" ],
+    "YRangeRaw": [ "440:454", "459:471", "440:454", "459:471", "438:441", "438:441", "455:459", "455:459", "450:463", "450:463" ],
+    "RotRangeRaw": [ "70:110", "70:110", "70:110", "70:110", "70:110", "70:110", "70:110", "70:110", "350:370", "350:370" ],
+    "ScaleRaw": [ "1.0:1.0", "1.0:1.0", "1.0:1.0", "1.0:1.0", "0.7:0.7", "0.7:0.7", "0.5:0.5", "0.5:0.5", "1.0:1.2", "1.0:1.2" ],
+    "NoTransform": false,
+
+    "Alpha": 1,
+    "TargetBodyTexSize": 1024,
+    "SplashCount": 10
+  },
+
+  "Ass": {
+    "Slotname": "body",
+    "Part": "Siri",
+    "MatNo": 0,
+    "PropName": [
+      "_MainTex",
+      "_ShadowTex"
+    ],
+    "LayerNo": 13,
+    "FileNameRaw": [
+      "Span/span001",
+      "Span/span002:Span/span003:Span/span004",
+      "Span/span002:Span/span003:Span/span004",
+      "Span/span001"
+    ],
+    "BlendMode": "Alpha",
+    "Add": true,
+    "XRangeRaw": [ "241:267", "282:285", "739:742", "757:783" ],
+    "YRangeRaw": [ "802:838", "794:840", "794:840", "802:838" ],
+    "RotRangeRaw": [ "340:380", "340:380", "340:380", "340:380" ],
+    "ScaleRaw": [ "1.0:1.2", "0.7:1.0", "0.7:1.0", "1.0:1.2" ],
+    "NoTransform": false,
+
+    "Alpha": 1,
+    "TargetBodyTexSize": 1024,
+    "SplashCount": 4
+  }
+
+
+}
+
+

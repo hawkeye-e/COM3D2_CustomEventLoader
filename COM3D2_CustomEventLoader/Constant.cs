@@ -221,6 +221,9 @@ namespace COM3D2.CustomEventLoader.Plugin
         internal static class TextureType
         {
             internal const string Semen = "Semen";
+            internal const string Candle = "Candle";
+            internal const string WhipMark = "WhipMark";
+            internal const string SlapMark = "SlapMark";
         }
 
         internal static class CallScreenName
