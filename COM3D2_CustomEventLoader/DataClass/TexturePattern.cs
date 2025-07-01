@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using UnityEngine;
-using Newtonsoft.Json;
 
 namespace COM3D2.CustomEventLoader.Plugin
 {
@@ -63,7 +64,7 @@ namespace COM3D2.CustomEventLoader.Plugin
             foreach (var rawData in RotRangeRaw)
             {
                 string[] raw = rawData.Split(':');
-                RangeFloat newRange = new RangeFloat(float.Parse(raw[0]), float.Parse(raw[1]));
+                RangeFloat newRange = new RangeFloat(float.Parse(raw[0], CultureInfo.InvariantCulture), float.Parse(raw[1], CultureInfo.InvariantCulture));
                 RotRange.Add(newRange);
             }
 
@@ -71,7 +72,7 @@ namespace COM3D2.CustomEventLoader.Plugin
             foreach (var rawData in ScaleRaw)
             {
                 string[] raw = rawData.Split(':');
-                RangeFloat newRange = new RangeFloat(float.Parse(raw[0]), float.Parse(raw[1]));
+                RangeFloat newRange = new RangeFloat(float.Parse(raw[0], CultureInfo.InvariantCulture), float.Parse(raw[1], CultureInfo.InvariantCulture));
                 Scale.Add(newRange);
             }
 

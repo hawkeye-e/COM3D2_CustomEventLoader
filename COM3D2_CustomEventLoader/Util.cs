@@ -2,6 +2,7 @@
 using COM3D2.CustomEventLoader.Plugin.DataClass;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -188,7 +189,7 @@ namespace COM3D2.CustomEventLoader.Plugin
                 return Vector3.zero;
 
             var split = vectorInString.Split(',');
-            return new Vector2(float.Parse(split[0].Trim()), float.Parse(split[1].Trim()));
+            return new Vector2(float.Parse(split[0].Trim(), CultureInfo.InvariantCulture), float.Parse(split[1].Trim(), CultureInfo.InvariantCulture));
         }
 
         public static Vector3 ParseVector3RawString(string vectorInString)
@@ -197,13 +198,13 @@ namespace COM3D2.CustomEventLoader.Plugin
                 return Vector3.zero;
 
             var split = vectorInString.Split(',');
-            return new Vector3(float.Parse(split[0].Trim()), float.Parse(split[1].Trim()), float.Parse(split[2].Trim()));
+            return new Vector3(float.Parse(split[0].Trim(), CultureInfo.InvariantCulture), float.Parse(split[1].Trim(), CultureInfo.InvariantCulture), float.Parse(split[2].Trim(), CultureInfo.InvariantCulture));
         }
 
         public static Quaternion ParseQuaternionRawString(string quaternionInString)
         {
             var split = quaternionInString.Split(',');
-            return new Quaternion(float.Parse(split[0].Trim()), float.Parse(split[1].Trim()), float.Parse(split[2].Trim()), float.Parse(split[3].Trim()));
+            return new Quaternion(float.Parse(split[0].Trim(), CultureInfo.InvariantCulture), float.Parse(split[1].Trim(), CultureInfo.InvariantCulture), float.Parse(split[2].Trim(), CultureInfo.InvariantCulture), float.Parse(split[3].Trim(), CultureInfo.InvariantCulture));
         }
 
         internal static void ClearGenericCollection<T>(List<T> list)
