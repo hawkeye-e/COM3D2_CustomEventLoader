@@ -375,6 +375,7 @@ namespace COM3D2.CustomEventLoader.Plugin
                 public VariableInfo Variable;
                 public CharaStatusInfo CharaStatus;
                 public FixedValueInfo FixedValue;
+                public RandomNumberInfo RandomNumber;
             }
 
             public class VariableInfo
@@ -397,11 +398,16 @@ namespace COM3D2.CustomEventLoader.Plugin
                 public string FixedValue;
             }
 
+            public class RandomNumberInfo
+            {
+                public int MaxValue;
+            }
             public enum SourceType
             {
                 Variable,
                 CharcterStatus,
-                FixedValue
+                FixedValue,
+                RandomNumber,
             }
         }
 

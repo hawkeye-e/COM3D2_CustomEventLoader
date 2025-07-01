@@ -1179,8 +1179,10 @@ namespace COM3D2.CustomEventLoader.Plugin.Core
                     default:
                         return inputDetail.FixedValue.FixedValue;
                 }
-
-
+            }
+            else if (inputDetail.SourceType == ADVStep.Evaluate.SourceType.RandomNumber)
+            {
+                return RNG.Random.Next(inputDetail.RandomNumber.MaxValue);
             }
 
             return null;
