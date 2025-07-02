@@ -263,6 +263,37 @@ namespace COM3D2.CustomEventLoader.Plugin
             internal const string accxxx = "accxxx";            //前穴
         }
 
+        //Dictionary for display meaningful clothes part name instead of internal used code
+        internal static readonly Dictionary<string, string> ClothesPartMapping = new Dictionary<string, string>()
+        {
+            {"acchat" , "Hat"},
+            {"headset" , "Head Dress"},
+            {"wear" , "Top"},
+            {"skirt" , "Bottom"},
+            {"onepiece" , "One-Piece"},
+            {"mizugi" , "Swimsuit"},
+            {"bra" , "Bra"},
+            {"panz" , "Panties"},
+            {"stkg" , "Socks"},
+            {"shoes" , "Shoes"},
+            {"acckami" , "Bangs"},
+            {"megane" , "Glasses"},
+            {"acchead" , "Eye Mask"},
+            {"acchana" , "Nose"},
+            {"accmimi" , "Ears"},
+            {"glove" , "Gloves"},
+            {"acckubi" , "Necklace"},
+            {"acckubiwa" , "Choker"},
+            {"acckamisub" , "Ribbon"},
+            {"accnip" , "Nipple"},
+            {"accude" , "Arm"},
+            {"accheso" , "Belly button"},
+            {"accashi" , "Ankle"},
+            {"accsenaka" , "Back"},
+            {"accshippo" , "Tail"},
+            {"accxxx" , "Vagina"}
+        };
+
         internal static class DefinedClassFieldNames
         {
             internal const string MaidStatusFirstName = "firstName_";

@@ -119,6 +119,29 @@ namespace COM3D2.CustomEventLoader.Plugin.HooksAndPatches.DebugUse
                             );
                     }
                 }
+            }else if (Input.GetKeyDown(Config.DeveloperModeClothesSetDataKey.MainKey))
+            {
+                Maid maid = GameMain.Instance.CharacterMgr.GetMaid(0);
+
+                if (maid == null)
+                    return;
+
+                CustomEventLoader.Log.LogInfo("==============================");
+
+                Type type = typeof(Constant.ClothingTag);
+                Dictionary<string, string> dictClothesSet = new Dictionary<string, string>();
+                foreach (var p in type.GetFields(System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic))
+                {
+                    var tag = p.GetValue(null).ToString();
+                    var mp = maid.GetProp(tag);
+                    CustomEventLoader.Log.LogInfo("[Clothes Set Info] " + Constant.ClothesPartMapping[tag] + ": " + mp.strFileName);
+                    dictClothesSet.Add(tag, mp.strFileName);
+                }
+
+                string serializeString = Newtonsoft.Json.JsonConvert.SerializeObject(dictClothesSet);
+                CustomEventLoader.Log.LogInfo("------------------------------");
+                CustomEventLoader.Log.LogInfo("[Clothes Set Info] For Parser: " + serializeString);
+                CustomEventLoader.Log.LogInfo("==============================");
             }
         }
 

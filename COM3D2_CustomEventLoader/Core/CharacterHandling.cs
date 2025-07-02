@@ -265,33 +265,20 @@ namespace COM3D2.CustomEventLoader.Plugin.Core
             }
             else
             {
-                //TODO: review clothes set logic
+                if (StateManager.Instance.ClothesSetList.ContainsKey(clothesSetID))
+                {
+                    foreach(var kvp in StateManager.Instance.ClothesSetList[clothesSetID])
+                    {
+                        string slotName = kvp.Key;
+                        string fileName = kvp.Value;
 
-                //ClothesSet targetSet = ModUseData.ClothesSetList[clothesSetID];
-                //ClothesSet nudeSet = ModUseData.ClothesSetList[ModResources.TextResource.NudeClothesSetID];
+                        maid.ResetProp(slotName, true);
+                        maid.AllProcProp();
+                        maid.SetProp(slotName, fileName, 0, false);
+                        maid.AllProcProp();
+                    }
+                }
 
-                //for (int i = 0; i < Constant.DressingClothingTagArray.Length; i++)
-                //{
-                //    string slotName = Constant.DressingClothingTagArray[i];
-                //    string fileName = "";
-                //    if (targetSet.RequireNude)
-                //        fileName = nudeSet.Slots[slotName];
-                //    if (targetSet.Slots.ContainsKey(slotName))
-                //        fileName = targetSet.Slots[slotName];
-
-                //    maid.ResetProp(slotName, true);
-                //    maid.AllProcProp();
-                //    maid.SetProp(slotName, fileName, 0, false);
-                //    maid.AllProcProp();
-                //}
-
-                //if (targetSet.NonClothesSlots != null)
-                //{
-                //    foreach (var item in targetSet.NonClothesSlots)
-                //        maid.SetProp(item.Key, item.Value, 0, true);
-
-                //    maid.AllProcProp();
-                //}
             }
         }
 

@@ -36,6 +36,9 @@ namespace COM3D2.CustomEventLoader.Plugin
         internal static KeyboardShortcut DeveloperModeCharaPlacementDataKey { get { return _developerModeCharaPlacementDataKey.Value; } }
         private static ConfigEntry<KeyboardShortcut> _developerModeCharaPlacementDataKey;
 
+        internal static KeyboardShortcut DeveloperModeClothesSetDataKey { get { return _developerModeClothesSetDataKey.Value; } }
+        private static ConfigEntry<KeyboardShortcut> _developerModeClothesSetDataKey;
+
         internal static bool DebugAlwaysReloadEventList { get { return _debugAlwaysReloadEventList.Value; } }
         private static ConfigEntry<bool> _debugAlwaysReloadEventList;
 
@@ -95,6 +98,8 @@ namespace COM3D2.CustomEventLoader.Plugin
             _developerModeWorldObjectDataKey = plugin.Config.Bind(DEVELOPER, "Print Object Info List Key", new KeyboardShortcut(UnityEngine.KeyCode.O), "The key to display object list information required for the World Object step. Works in studio mode only.");
 
             _developerModeCharaPlacementDataKey = plugin.Config.Bind(DEVELOPER, "Print Character Placement Key", new KeyboardShortcut(UnityEngine.KeyCode.X), "The key to display character placement information required for the Chara step. Works in studio mode only.");
+
+            _developerModeClothesSetDataKey = plugin.Config.Bind(DEVELOPER, "Print Clothes Set Key", new KeyboardShortcut(UnityEngine.KeyCode.B), "The key to display the clothes set information of the maid for the Chara Init step. Works best in Edit Maid mode.");
 
             _debugIgnoreADVForceTimeWait = plugin.Config.Bind(DEVELOPER, "Ignore ADV Time Wait Setting", false, "Skip all those time wait setting in ADV to speed up the debug process.");
 

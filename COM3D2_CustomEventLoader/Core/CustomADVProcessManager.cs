@@ -219,12 +219,28 @@ namespace COM3D2.CustomEventLoader.Plugin.Core
                     var scnDef = Util.GetCurrentScenarioDefinition();
                     
                     byte[] fileContent = ScenarioFileHandling.GetCustomEventFileContentInByteArray(scnDef.FilePath, anim.FileName);
-                    StateManager.Instance.CustomAnimationList.Add(anim.Key, fileContent);
+
+                    if (StateManager.Instance.CustomAnimationList.ContainsKey(anim.Key))
+                        StateManager.Instance.CustomAnimationList[anim.Key] = fileContent;
+                    else
+                        StateManager.Instance.CustomAnimationList.Add(anim.Key, fileContent);
                 }
 
                 ZipConstants.DefaultCodePage = backupCodePage;
             }
 
+            //Init Clothes Set List
+            StateManager.Instance.ClothesSetList = new Dictionary<string, Dictionary<string, string>>();
+            if (step.CharaInitData.ClothesSet != null)
+            {
+                foreach (var clothing in step.CharaInitData.ClothesSet)
+                {
+                    if (StateManager.Instance.ClothesSetList.ContainsKey(clothing.Key))
+                        StateManager.Instance.ClothesSetList[clothing.Key] = clothing.Slots;
+                    else
+                        StateManager.Instance.ClothesSetList.Add(clothing.Key, clothing.Slots);
+                }
+            }
         }
 
         private static void ProcessADVChangeBGM(ADVKagManager instance, ADVStep step)
