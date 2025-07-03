@@ -84,6 +84,8 @@ namespace COM3D2.CustomEventLoader.Plugin
         internal Dictionary<string, byte[]> CustomAnimationList = new Dictionary<string, byte[]>();
         //Key: Clothes Set Key, Value: Clothing Slot Dictionary
         internal Dictionary<string, Dictionary<string, string>> ClothesSetList = new Dictionary<string, Dictionary<string, string>>();
+        //Key: Maid, Value: List of active effect id
+        internal Dictionary<Maid, List<string>> ActiveEffectList = new Dictionary<Maid, List<string>>();
 
         //Developer mode use
         internal ObjectManagerWindow ObjectWindow;

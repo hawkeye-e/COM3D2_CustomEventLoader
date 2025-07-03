@@ -497,16 +497,15 @@ namespace COM3D2.CustomEventLoader.Plugin.Core
 
                 CharacterHandling.SetFemaleClothing(maid, charaData.ClothesSetID);
 
-                if(charaData.Effect != null)
-                {
-                    CharacterHandling.AddCharacterEffect(maid, charaData.Effect.Add);
-                    CharacterHandling.RemoveCharacterEffect(maid, charaData.Effect.Remove);
-                }
             }
             else
             {
                 CharacterHandling.SetManClothing(maid, charaData.IsManNude);
             }
+
+            if (charaData.Effect != null)
+                CharacterHandling.UpdateCharacterEffect(maid, charaData.Effect.ActiveEffects);
+            
 
             SetCharacterEyeSight(maid, charaData.EyeSight);
 

@@ -324,8 +324,31 @@ namespace COM3D2.CustomEventLoader.Plugin.Core
             }
         }
 
+        internal static void UpdateCharacterEffect(Maid maid, List<string> activeEffectList)
+        {
+            if (maid == null)
+                return;
+            if (activeEffectList == null)
+                return;
 
-        internal static void AddCharacterEffect(Maid maid, List<string> effectList)
+            if (!StateManager.Instance.ActiveEffectList.ContainsKey(maid))
+                StateManager.Instance.ActiveEffectList.Add(maid, new List<string>());
+
+            //Compare the effect list with the ActiveEffectList
+            List<string> toBeRemoved = StateManager.Instance.ActiveEffectList[maid].Except(activeEffectList).ToList();
+            List<string> toBeAdded = activeEffectList.Except(StateManager.Instance.ActiveEffectList[maid]).ToList();
+
+            RemoveCharacterEffect(maid, toBeRemoved);
+            AddCharacterEffect(maid, toBeAdded);
+
+            //Update the List in memory
+            foreach (var effect in toBeRemoved)
+                StateManager.Instance.ActiveEffectList[maid].Remove(effect);
+            foreach (var effect in toBeAdded)
+                StateManager.Instance.ActiveEffectList[maid].Add(effect);
+        }
+
+        private static void AddCharacterEffect(Maid maid, List<string> effectList)
         {
             if (maid == null)
                 return;
@@ -336,13 +359,13 @@ namespace COM3D2.CustomEventLoader.Plugin.Core
             {
                 if (!ModUseData.CharacterEffectList.ContainsKey(effectID))
                     continue;
-
+                
                 CharacterEffect effect = ModUseData.CharacterEffectList[effectID];
                 maid.AddPrefab(effect.Prefab, effect.Name, effect.TargetBone, effect.Offset.Pos, effect.Offset.Rot);
             }
         }
 
-        internal static void RemoveCharacterEffect(Maid maid, List<string> effectList)
+        private static void RemoveCharacterEffect(Maid maid, List<string> effectList)
         {
             if (maid == null)
                 return;
@@ -353,6 +376,7 @@ namespace COM3D2.CustomEventLoader.Plugin.Core
             {
                 if (!ModUseData.CharacterEffectList.ContainsKey(effectID))
                     continue;
+                
                 CharacterEffect effect = ModUseData.CharacterEffectList[effectID];
                 maid.DelPrefab(effect.Name);
             }

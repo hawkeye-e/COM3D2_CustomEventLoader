@@ -37,5 +37,65 @@
       "PosString": "0, 0, 0.01",
       "RotString": "0, -180, 90"
     }
+  },
+
+  "Urine_Doggy": {
+    "Prefab": "Particle/pNyou_cm3D2",
+    "Name": "CustomEvent_Mod_Urine_Doggy",
+    "TargetBone": "_IK_vagina",
+    "Offset": {
+      "PosString": "0, -0.02, 0",
+      "RotString": "36.00, 150.00, 158.00"
+    }
+  },
+
+  "Urine_Common": {
+    "Prefab": "Particle/pNyou_cm3D2",
+    "Name": "CustomEvent_Mod_Urine_Common",
+    "TargetBone": "_IK_vagina",
+    "Offset": {
+      "PosString": "0, -0.02, 0",
+      "RotString": "20.00, -180.00, 180.00"
+    }
+  },
+
+  "Urine_Drop": {
+    "Prefab": "Particle/pNyouE_com3D2",
+    "Name": "CustomEvent_Mod_UrineDrop",
+    "TargetBone": "_IK_vagina",
+    "Offset": {
+      "PosString": "0, -0.02, 0",
+      "RotString": "20.00, -180.00, 180.00"
+    }
+  },
+
+  "Squirting": {
+    "Prefab": "Particle/pSio2_cm3D2",
+    "Name": "CustomEvent_Mod_Squirting",
+    "TargetBone": "_IK_vagina",
+    "Offset": {
+      "PosString": "0.00, 0.00, -0.01",
+      "RotString": "0.00, 180.00, 0.00"
+    }
+  },
+
+  "Female_EjaculateInside": {
+    "Prefab": "Particle/pSeieki_naka",
+    "Name": "CustomEvent_Mod_Female_EjaculateInside",
+    "TargetBone": "_IK_vagina",
+    "Offset": {
+      "PosString": "0.00, 0.00, -0.01",
+      "RotString": "0.00, -180.00, 90.00"
+    }
+  },
+
+  "Male_EjaculateOutside": {
+    "Prefab": "Particle/pSeieki_naka",
+    "Name": "CustomEvent_Mod_Male_EjaculateOutside",
+    "TargetBone": "chinko2",
+    "Offset": {
+      "PosString": "-0.10, -0.01, 0.00",
+      "RotString": "0.00, -90.00, 90.00"
+    }
   }
 }

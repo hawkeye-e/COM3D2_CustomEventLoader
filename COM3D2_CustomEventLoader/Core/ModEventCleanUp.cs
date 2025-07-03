@@ -129,7 +129,9 @@ namespace COM3D2.CustomEventLoader.Plugin.Core
             Util.ClearGenericCollection(StateManager.Instance.ForceLipSyncingList);
 
             Util.ClearGenericCollection(StateManager.Instance.CustomAnimationList);
-
+            Util.ClearGenericCollection(StateManager.Instance.ClothesSetList);
+            Util.ClearGenericCollection(StateManager.Instance.ActiveEffectList);
+            
 
             StateManager.Instance.WaitForUserClick = false;
             StateManager.Instance.WaitForUserInput = false;
