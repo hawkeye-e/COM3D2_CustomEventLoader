@@ -43,11 +43,16 @@ namespace COM3D2.CustomEventLoader.Plugin
             foreach (var kvp in slapMarkPatternList)
                 kvp.Value.PostInitDataProcess();
 
+            var lotionPatternList = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, TexturePattern>>(ModResources.TextResource.LotionPattern);
+            foreach (var kvp in lotionPatternList)
+                kvp.Value.PostInitDataProcess();
+
             TexturePatternList = new Dictionary<string, Dictionary<string, TexturePattern>>();
             TexturePatternList.Add(Constant.TextureType.Semen, semenPatternList);
             TexturePatternList.Add(Constant.TextureType.WhipMark, whipMarkPatternList);
             TexturePatternList.Add(Constant.TextureType.Candle, candlePatternList);
             TexturePatternList.Add(Constant.TextureType.SlapMark, slapMarkPatternList);
+            TexturePatternList.Add(Constant.TextureType.Lotion, lotionPatternList);
         }
 
     }

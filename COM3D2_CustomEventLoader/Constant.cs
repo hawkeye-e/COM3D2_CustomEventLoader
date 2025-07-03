@@ -224,6 +224,7 @@ namespace COM3D2.CustomEventLoader.Plugin
             internal const string Candle = "Candle";
             internal const string WhipMark = "WhipMark";
             internal const string SlapMark = "SlapMark";
+            internal const string Lotion = "Lotion";
         }
 
         internal static class CallScreenName

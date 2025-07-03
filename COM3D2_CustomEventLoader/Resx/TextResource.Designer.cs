@@ -119,6 +119,36 @@ namespace ModResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {
+        ///  &quot;FullBody&quot;: {
+        ///    &quot;Slotname&quot;: &quot;body&quot;,
+        ///    &quot;Part&quot;: &quot;&quot;,
+        ///    &quot;MatNo&quot;: 0,
+        ///    &quot;PropName&quot;: [
+        ///      &quot;_MainTex&quot;,
+        ///      &quot;_ShadowTex&quot;
+        ///    ],
+        ///    &quot;LayerNo&quot;: 24,
+        ///    &quot;FileNameRaw&quot;: [
+        ///      &quot;Lotion/lot001:Lotion/lot002&quot;,
+        ///      &quot;Lotion/lot003:Lotion/lot004&quot;,
+        ///      &quot;Lotion/lot001:Lotion/lot002&quot;,
+        ///      &quot;Lotion/lot003:Lotion/lot004&quot;,
+        ///      &quot;Lotion/lot003:Lotion/lot004&quot;,
+        ///      &quot;Lotion/lot007&quot;,
+        ///      &quot;Lotion/lot008&quot;,
+        ///      &quot;Lotion/lot003&quot;,
+        ///      &quot;Lotion/lot001&quot;,
+        ///      &quot;Lotion/lot001&quot;,
+        ///      &quot;Lotion/l [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string LotionPattern {
+            get {
+                return ResourceManager.GetString("LotionPattern", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Type,FileName,NudeBodyOption,ClothedBodyOption,AdultPartOption,KidsPartOption,BodyGroup,Dummy
         ///head,mhead003_i_.menu,FALSE,FALSE,TRUE,FALSE,0,
         ///head,mhead000_i_.menu,FALSE,FALSE,TRUE,FALSE,0,
@@ -192,29 +222,32 @@ namespace ModResources {
         
         /// <summary>
         ///   Looks up a localized string similar to {
-        ///  &quot;Vagina&quot;: {
-        ///    &quot;Slotname&quot;: &quot;body&quot;,
-        ///    &quot;Part&quot;: &quot;Hibu&quot;,
-        ///    &quot;MatNo&quot;: 0,
+        ///  &quot;Face&quot;: {
+        ///    &quot;Slotname&quot;: &quot;head&quot;,
+        ///    &quot;Part&quot;: &quot;&quot;,
+        ///    &quot;MatNo&quot;: 5,
         ///    &quot;PropName&quot;: [
         ///      &quot;_MainTex&quot;,
         ///      &quot;_ShadowTex&quot;
         ///    ],
         ///    &quot;LayerNo&quot;: 13,
         ///    &quot;FileNameRaw&quot;: [
-        ///      &quot;Muchi/muchi004:Muchi/muchi005&quot;
+        ///      &quot;Span/span001&quot;
         ///    ],
         ///    &quot;BlendMode&quot;: &quot;Alpha&quot;,
         ///    &quot;Add&quot;: true,
-        ///    &quot;XRangeRaw&quot;: [ &quot;481:540&quot; ],
-        ///    &quot;YRangeRaw&quot;: [ &quot;854:883&quot; ],
-        ///    &quot;RotRangeRaw&quot;: [ &quot;300:420&quot; ],
-        ///    &quot;ScaleRaw&quot;: [ &quot;1.0:1.0&quot; ],
+        ///    &quot;XRangeRaw&quot;: [ &quot;665:689&quot; ],
+        ///    &quot;YRangeRaw&quot;: [ &quot;727:757&quot; ],
+        ///    &quot;RotRangeRaw&quot;: [ &quot;345:375&quot; ],
+        ///    &quot;ScaleRaw&quot;: [ &quot;3.0:4.0&quot; ],
         ///    &quot;NoTransform&quot;: false,
         ///
         ///    &quot;Alpha&quot;: 1,
         ///    &quot;TargetBodyTexSize&quot;: 1024,
-        ///    &quot;SplashCount&quot;: 1 [rest of string was truncated]&quot;;.
+        ///    &quot;SplashCount&quot;: 1
+        ///  },
+        ///
+        ///  &quot;Breast&quot;: { [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SlapMarkPattern {
             get {

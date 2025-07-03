@@ -129,6 +129,6 @@ namespace COM3D2.CustomEventLoader.Plugin
         public const int SlapMarkLayer = 13;
         public const int CandleLayer = 15;
         public const int SemenLayer = 18;
-        
+        public const int LotionLayer = 24;
     }
 }

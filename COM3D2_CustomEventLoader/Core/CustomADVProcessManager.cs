@@ -999,6 +999,8 @@ namespace COM3D2.CustomEventLoader.Plugin.Core
                         dictPattern = ModUseData.TexturePatternList[Constant.TextureType.Candle];
                     else if (data.Type == Constant.TextureType.SlapMark)
                         dictPattern = ModUseData.TexturePatternList[Constant.TextureType.SlapMark];
+                    else if (data.Type == Constant.TextureType.Lotion)
+                        dictPattern = ModUseData.TexturePatternList[Constant.TextureType.Lotion];
 
                     //skip if invalid pattern type
                     if (dictPattern == null)
@@ -1045,6 +1047,8 @@ namespace COM3D2.CustomEventLoader.Plugin.Core
                         layer = TexturePattern.CandleLayer;
                     else if (data.Type == Constant.TextureType.SlapMark)
                         layer = TexturePattern.SlapMarkLayer;
+                    else if (data.Type == Constant.TextureType.Lotion)
+                        layer = TexturePattern.LotionLayer;
 
                     if (layer < 0)
                         continue;
