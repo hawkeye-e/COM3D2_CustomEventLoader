@@ -137,5 +137,18 @@ namespace COM3D2.CustomEventLoader.Plugin.HooksAndPatches.DebugUse
             if (Config.DebugLogMaleBodyPartInfo)
                 CustomEventLoader.Log.LogInfo("[Male Body Part] File Name: " + set_menu.m_strMenuFileName );
         }
+
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(Maid), nameof(Maid.SetProp), new Type[] { typeof(string), typeof(string), typeof(int), typeof(bool), typeof(bool) })]
+        private static void SetProp(string tag, string filename, int f_nFileNameRID, bool f_bTemp, bool f_bNoScale)
+        {
+            if (Config.DebugLogExtraItemObjectInfo)
+            {
+                if (Constant.ExtraItemPartList.Contains(tag))
+                    CustomEventLoader.Log.LogInfo("[Extra Item] Target: " + tag + ", File Name: " + filename);
+            }
+            
+
+        }
     }
 }

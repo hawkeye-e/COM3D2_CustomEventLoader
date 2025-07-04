@@ -53,7 +53,7 @@ namespace COM3D2.CustomEventLoader.Plugin
 
         internal static class Hooks
         {
-           
+
         }
     }
 }

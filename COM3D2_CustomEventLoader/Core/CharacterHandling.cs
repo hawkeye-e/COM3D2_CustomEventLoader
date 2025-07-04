@@ -495,32 +495,40 @@ namespace COM3D2.CustomEventLoader.Plugin.Core
 #endif
         }
 
-        internal static void AttachObjectToCharacter(Maid maid, List<ExtraItemObject> extraItemObjects)
+        internal static void HandleExtraObject(Maid maid, ExtraItemObject item)
+        {
+            if (maid == null) 
+                return;
+            if (item != null)
+                return;
+
+            if (!string.IsNullOrEmpty(item.ItemFile))
+                AttachObjectToCharacter(maid, item);
+            else
+                RemoveObjectFromCharacter(maid, item.Target);
+        }
+
+        internal static void AttachObjectToCharacter(Maid maid, ExtraItemObject item)
         {
             if (maid == null)
                 return;
 
-            if (extraItemObjects != null)
+            if (item != null)
             {
                 //the objects dont show up if it is not reset first...
-                foreach (var extraItem in extraItemObjects)
-                    maid.ResetProp(extraItem.Target, true);
+                maid.ResetProp(item.Target, true);
                 maid.AllProcProp();
 
-                foreach (var extraItem in extraItemObjects)
-                {
-                    maid.SetProp(extraItem.Target, extraItem.ItemFile, 0, extraItem.IsTemp);
-                }
+                maid.SetProp(item.Target, item.ItemFile, 0, item.IsTemp);
                 maid.AllProcProp();
             }
         }
 
-        internal static void RemoveObjectFromCharacter(Maid maid, List<string> positionToRemove)
+        internal static void RemoveObjectFromCharacter(Maid maid, string positionToRemove)
         {
             if (positionToRemove != null)
             {
-                foreach (var position in positionToRemove)
-                    maid.ResetProp(position, true);
+                maid.ResetProp(positionToRemove, true);
                 maid.AllProcProp();
             }
         }

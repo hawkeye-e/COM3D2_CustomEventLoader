@@ -530,10 +530,9 @@ namespace COM3D2.CustomEventLoader.Plugin.Core
                 maid.body0.SetBoneHitHeightY(charaData.PosRot.Pos.y);
             }
 
-            if (charaData.ExtraObjectsInfo != null)
+            if (charaData.ExtraObjectInfo != null)
             {
-                CharacterHandling.RemoveObjectFromCharacter(maid, charaData.ExtraObjectsInfo.RemoveObjects);
-                CharacterHandling.AttachObjectToCharacter(maid, charaData.ExtraObjectsInfo.AddObjects);
+                CharacterHandling.HandleExtraObject(maid, charaData.ExtraObjectInfo);
             }
 
             StateManager.Instance.WaitForFullLoadList.Add(maid);

@@ -66,6 +66,9 @@ namespace COM3D2.CustomEventLoader.Plugin
         internal static bool DebugLogMaleBodyPartInfo { get { return _debugLogMaleBodyPartInfo.Value; } }
         private static ConfigEntry<bool> _debugLogMaleBodyPartInfo;
 
+        internal static bool DebugLogExtraItemObjectInfo { get { return _debugLogExtraItemObjectInfo.Value; } }
+        private static ConfigEntry<bool> _debugLogExtraItemObjectInfo;
+
 
 
         internal static void Init(BaseUnityPlugin plugin)
@@ -118,6 +121,8 @@ namespace COM3D2.CustomEventLoader.Plugin
             _debugLogSEInfo = plugin.Config.Bind(DEVELOPER, "Log Load SE Info", false, "Log the sound effect info whenever it is changed in the game.");
 
             _debugLogMaleBodyPartInfo = plugin.Config.Bind(DEVELOPER, "Log Male Body Part Info", false, "Log the male body part info whenever it is changed in the male edit screen.");
+
+            _debugLogExtraItemObjectInfo = plugin.Config.Bind(DEVELOPER, "Log Extra Item Object Info", false, "Log the extra item object info whenever it is changed for a character in the game.");
         }
 
 

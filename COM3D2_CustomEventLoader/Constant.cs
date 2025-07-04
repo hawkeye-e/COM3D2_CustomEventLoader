@@ -13,6 +13,9 @@ namespace COM3D2.CustomEventLoader.Plugin
         public const string StepsFileName = "steps.json";
         public const int AnyPersonality = 0;
         internal const string ClothesSetResetCode = "RESET";
+        internal static readonly List<string> ExtraItemPartList = new List<string> {
+            "handitem", "kousoku_upper", "kousoku_lower"
+        };
 
         internal static class PersonalityType
         {
