@@ -749,7 +749,8 @@ namespace COM3D2.CustomEventLoader.Plugin.Core
                             
                             StateManager.Instance.ForceLipSyncingList.Add(maid);
                             
-                            maid.StartKuchipakuPattern(0f, Constant.LipSyncPattern, true);
+                            int rnd = RNG.Random.Next(Constant.LipSyncPatterns.Count);
+                            maid.StartKuchipakuPattern(0f, Constant.LipSyncPatterns[rnd], true);
                         }
                     }
                 }
