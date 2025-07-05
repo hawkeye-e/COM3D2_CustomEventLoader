@@ -77,5 +77,14 @@ namespace COM3D2.CustomEventLoader.Plugin.HooksAndPatches.DailyScreen
         {
             Patches.ReplaceResultByCustomData(ref __result);
         }
+
+        //Replace the result with custom image if the path matches the guid assigned
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(UnityEngine.Resources), nameof(UnityEngine.Resources.Load), new Type[] { typeof(string), typeof(Type) })]
+        private static void Load(string path, Type systemTypeInstance, ref UnityEngine.Object __result)
+        {
+            Patches.ReplaceCustomImage(path, systemTypeInstance, ref __result);
+            
+        }
     }
 }

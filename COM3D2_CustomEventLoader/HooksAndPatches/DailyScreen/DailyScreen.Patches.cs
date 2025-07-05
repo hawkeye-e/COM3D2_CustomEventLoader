@@ -87,7 +87,21 @@ namespace COM3D2.CustomEventLoader.Plugin.HooksAndPatches.DailyScreen
                     Traverse.Create(sData).Field("NotLineTitle").SetValue(kvp.Value.Title);
                     Traverse.Create(sData).Field("Title").SetValue(kvp.Value.Title);
                     Traverse.Create(sData).Field("EventContents").SetValue(kvp.Value.EventContents);
-                    Traverse.Create(sData).Field("IconName").SetValue(kvp.Value.Icon);
+                    string iconFileName = kvp.Value.Icon;
+                    if (kvp.Value.IsCustomIcon)
+                    {
+                        int backupCodePage = ZipConstants.DefaultCodePage;
+                        ZipConstants.DefaultCodePage = System.Text.Encoding.UTF8.CodePage;
+
+                        iconFileName = Guid.NewGuid().ToString();
+                        var fileContent = ScenarioFileHandling.GetCustomEventFileContentInByteArray(kvp.Value.FilePath, kvp.Value.Icon);
+                        
+                        StateManager.Instance.CustomIconList.Add(iconFileName, Util.LoadNewSprite(fileContent));
+
+                        ZipConstants.DefaultCodePage = backupCodePage;
+                    }
+                    Traverse.Create(sData).Field("IconName").SetValue(iconFileName);
+                    
 
                     List<string> conditionText = new List<string>();
                     conditionText.Add(string.Format(ModResources.DisplayTextResource.DisplayAuthorFormat, kvp.Value.Author));
@@ -175,6 +189,23 @@ namespace COM3D2.CustomEventLoader.Plugin.HooksAndPatches.DailyScreen
             if (StateManager.Instance.IsRunningCustomEventScreen)
             {
                 StateManager.Instance.SelectedScenarioID = Traverse.Create(instance).Field("m_CurrentScenario").GetValue<ScenarioData>().ID;
+            }
+        }
+
+        internal static void ReplaceCustomImage(string path, Type type, ref UnityEngine.Object result)
+        {
+            if (type == typeof(UnityEngine.Sprite))
+            {
+                if (StateManager.Instance.CustomIconList != null)
+                {
+                    foreach (var kvp in StateManager.Instance.CustomIconList)
+                    {
+                        if (path.Contains(kvp.Key))
+                        {
+                            result = kvp.Value;
+                        }
+                    }
+                }
             }
         }
     }

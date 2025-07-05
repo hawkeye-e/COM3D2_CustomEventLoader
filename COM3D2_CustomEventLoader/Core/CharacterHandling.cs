@@ -499,7 +499,7 @@ namespace COM3D2.CustomEventLoader.Plugin.Core
         {
             if (maid == null) 
                 return;
-            if (item != null)
+            if (item == null)
                 return;
 
             if (!string.IsNullOrEmpty(item.ItemFile))

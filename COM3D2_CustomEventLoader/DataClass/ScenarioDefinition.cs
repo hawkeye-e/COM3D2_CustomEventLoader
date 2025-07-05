@@ -10,6 +10,7 @@ namespace COM3D2.CustomEventLoader.Plugin.DataClass
 
         public string Title;
         public string EventContents;
+        public bool IsCustomIcon = false;
         public string Icon;
         public int EditorVersion;
 
